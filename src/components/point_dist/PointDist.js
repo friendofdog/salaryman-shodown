@@ -5,14 +5,15 @@ import "./PointDist.css";
 const PointDist = (props) => {
   const {
     player,
-    onChange
+    onChange,
+    onSubmit
   } = props;
 
   const disabled = player.points <= 0;
 
   return (
     <div className="start">
-      <form onChange={onChange}>
+      <form onChange={onChange} onSubmit={onSubmit}>
         {Object.entries(player.stats).map((stat, index) => {
           return (
             <div key={index}>
@@ -28,6 +29,7 @@ const PointDist = (props) => {
             </div>
           )
         })}
+        <input type="submit" value="Start" />
       </form>
     </div>
   );

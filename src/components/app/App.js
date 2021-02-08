@@ -20,29 +20,38 @@ const App = () => {
       <header className="title-wrapper">
         <Title />
       </header>
-      <section>
-        <PointDist 
-          player={{...player1}}
-          onChange={(e) => {
-            setStats({...player1}, setPlayer1, e.target.name, e.target.value);
-          }}
-        />
-      </section>
-      <section className="arena-wrapper">
-        <Arena 
-          player1={player1}
-          player2={player2}
-        />
-      </section>
-      <section className="round-wrapper">
-        <Round
-          getRandStat={() => {
-            const stat = getRandStat(salarymanStats);
-            setRound(stat);
-          }}
-          round={round}
-        />
-      </section>
+      {creation? (
+        <section>
+          <PointDist 
+            player={{...player1}}
+            onChange={(e) => {
+              setStats({...player1}, setPlayer1, e.target.name, e.target.value);
+            }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              setCreation(false);
+            }}
+          />
+        </section>
+      ) : (
+        <>
+          <section className="arena-wrapper">
+            <Arena 
+              player1={player1}
+              player2={player2}
+            />
+          </section>
+          <section className="round-wrapper">
+            <Round
+              getRandStat={() => {
+                const stat = getRandStat(salarymanStats);
+                setRound(stat);
+              }}
+              round={round}
+            />
+          </section>
+        </>
+      )}
     </div>
   );
 }
