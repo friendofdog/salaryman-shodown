@@ -36,19 +36,3 @@ This app is a PvP game where players build a salaryman and battle them against e
 - Leader board
 
 ## Notes
-
-This is a rough idea of what a salaryman object would look like. Maximum six stats.
-
-```javascript
-class Salaryman {
-  constructor() {
-    this.conformity = 5;
-    this.inhibition = 5;
-    this.loyalty = 5;
-    this.karaoke = 5;
-    this.mucus = 5;
-    this.senority = 5;
-    this.sobriety = 5;
-  }
-}
-```

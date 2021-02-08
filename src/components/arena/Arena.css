@@ -1,0 +1,9 @@
+.arena h2 {
+  text-align: center;
+}
+
+.salaryman-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
