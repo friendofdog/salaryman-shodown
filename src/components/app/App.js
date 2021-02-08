@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { getRandStat, updateProps, salarymanStats } from "../../utils";
+import { getRandStat, handleRound, updateProps, salarymanStats } from "../../utils";
 import { Salaryman } from "../../classes";
 
 import Arena from "../arena/Arena";
@@ -50,7 +50,10 @@ const App = () => {
               getRandStat={() => {
                 const stat = getRandStat(salarymanStats);
                 setRound(stat);
-                setRedistribute(true);
+                handleRound({...player1}, {...player2}, setPlayer1, setPlayer2, stat);
+                setTimeout(() => {
+                  setRedistribute(true);
+                }, 2000);
               }}
               round={round}
             />
