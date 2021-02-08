@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { getRandStat, setStats, salarymanStats } from "../../utils";
+import { getRandStat, updateProps, salarymanStats } from "../../utils";
 import { Salaryman } from "../../classes";
 
 import Arena from "../arena/Arena";
@@ -14,23 +14,27 @@ const App = () => {
   const [player2, setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def"));
   const [round, setRound] = useState("");
   const [creation, setCreation] = useState(true);
+  const [redistrubite, setRedistribute] = useState(false);
 
   return (
     <div className="application">
       <header className="title-wrapper">
         <Title />
       </header>
-      {creation? (
+      {creation || redistrubite ? (
         <section>
           <PointDist 
+            creation={creation}
             player={{...player1}}
             onChange={(e) => {
-              setStats({...player1}, setPlayer1, e.target.name, e.target.value);
+              updateProps({...player1}, setPlayer1, e.target.name, e.target.value);
             }}
             onSubmit={(e) => {
               e.preventDefault();
               setCreation(false);
+              setRedistribute(false);
             }}
+            redistribute={redistrubite}
           />
         </section>
       ) : (
@@ -46,6 +50,7 @@ const App = () => {
               getRandStat={() => {
                 const stat = getRandStat(salarymanStats);
                 setRound(stat);
+                setRedistribute(true);
               }}
               round={round}
             />

@@ -3,11 +3,15 @@ const getRandStat = (stats) => {
   return stats[keys[ keys.length * Math.random() << 0]];
 }
 
-const setStats = (player, callback, key, val) => {
-  const stat = player.stats[key]
-  const prev = stat.val;
-  stat.val = parseInt(val);
-  player.points = prev > stat.val ? player.points + 1 : player.points - 1;
+const updateProps = (player, callback, key, val) => {
+  if (salarymanStats.includes(key)) {
+    const stat = player.stats[key]
+    const prev = stat.val;
+    stat.val = parseInt(val);
+    player.points = prev > stat.val ? player.points + 1 : player.points - 1;
+  } else {
+    player[key] = val;
+  }
   callback(player);
 }
 
@@ -20,4 +24,4 @@ const salarymanStats = [
   "sobriety"
 ];
 
-export { getRandStat, setStats, salarymanStats };
+export { getRandStat, updateProps, salarymanStats };
