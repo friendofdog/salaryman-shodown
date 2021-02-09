@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-import { getRandStat, handleRound, updateProps, salarymanStats } from "../../utils";
+import { checkGameover, getRandStat, handleRound, updateProps, salarymanStats } from "../../utils";
 import { Salaryman } from "../../classes";
 
 import Arena from "../arena/Arena";
+import Gameover from "../gameover/Gameover";
 import Round from "../round/Round";
 import PointDist from "../point_dist/PointDist";
 import Title from "../title/Title";
@@ -15,13 +16,15 @@ const App = () => {
   const [round, setRound] = useState("");
   const [creation, setCreation] = useState(true);
   const [redistrubite, setRedistribute] = useState(false);
+  const [gameover, setGameover] = useState(false);
+  const [roundWinner, setRoundWinner] = useState("");
 
   return (
     <div className="application">
       <header className="title-wrapper">
         <Title />
       </header>
-      {creation || redistrubite ? (
+      {gameover ? <Gameover winner={roundWinner} /> : creation || redistrubite ? (
         <section>
           <PointDist 
             creation={creation}
@@ -33,6 +36,8 @@ const App = () => {
               e.preventDefault();
               setCreation(false);
               setRedistribute(false);
+              setRound("");
+              setRoundWinner("");
             }}
             redistribute={redistrubite}
           />
@@ -50,14 +55,17 @@ const App = () => {
               getRandStat={() => {
                 const stat = getRandStat(salarymanStats);
                 const [winner, loser] = handleRound({...player1}, {...player2}, setPlayer1, setPlayer2, stat);
+                setRoundWinner(winner);
                 setRound(stat);
                 if (winner && loser) {
                   setTimeout(() => {
+                    checkGameover(loser, setGameover);
                     setRedistribute(true);
                   }, 2000);
                 }
               }}
               round={round}
+              winner={roundWinner}
             />
           </section>
         </>

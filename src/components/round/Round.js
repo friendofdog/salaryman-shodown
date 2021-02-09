@@ -5,17 +5,32 @@ import "./Round.css";
 const Round = (props) => {
   const {
     getRandStat,
-    round 
+    round,
+    winner
   } = props;
 
   return (
     <div className="round">
-      <button
-        onClick={getRandStat}>
-          Start!
-      </button>
-      <p>{round}</p>
-    </div>
+      {round && winner ? (
+        <>
+          <p>{round}</p>
+          <p>{winner.name || "no one"} wins the round!</p>
+        </>
+      ) : round ? (
+        <>
+          <p>{winner.name || "no one"} wins the round!</p>
+          <button
+            onClick={getRandStat}>
+              Start!
+          </button>
+        </>
+      ) : ( 
+        <button
+          onClick={getRandStat}>
+            Start!
+        </button>
+      )}
+   </div>
   );
 }
 

@@ -1,3 +1,7 @@
+const checkGameover = (loser, callback) => {
+  if (loser.cp === 0) callback(true);
+}
+
 const getRandStat = (stats) => {
   const keys = Object.keys(stats);
   return stats[keys[ keys.length * Math.random() << 0]];
@@ -35,4 +39,4 @@ const salarymanStats = [
   "sobriety"
 ];
 
-export { getRandStat, handleRound, updateProps, salarymanStats };
+export { checkGameover, getRandStat, handleRound, updateProps, salarymanStats };
