@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import socketIOClient from "socket.io-client";
 
 import { checkGameover, getRandStat, handleRound, updateProps, salarymanStats } from "../../utils";
 import { Salaryman } from "../../classes";
@@ -11,6 +12,9 @@ import Title from "../title/Title";
 import "./App.css";
 
 const App = () => {
+  const socketRef = useRef();
+  const serverPort = process.env.SERVER_PORT || 8080;
+
   const [player1, setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc"));
   const [player2, setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def"));
   const [round, setRound] = useState("");
@@ -18,6 +22,28 @@ const App = () => {
   const [redistrubite, setRedistribute] = useState(false);
   const [gameover, setGameover] = useState(false);
   const [roundWinner, setRoundWinner] = useState("");
+
+  useEffect(() => {
+    socketRef.current = socketIOClient(`http://127.0.0.1:${serverPort}`);
+
+    socketRef.current.on("confirm", () => {
+      console.log("socketid", socketRef.current.id);
+    });
+
+    socketRef.current.on("reject", () => {
+      throw new Error("Too many players");
+    });
+
+    socketRef.current.on("setCreation", data => {
+      console.log("setCreation", data);
+      setCreation(data);
+    });
+
+    socketRef.current.on("setRedistribute", data => {
+      console.log("setRedistribute", data);
+      setRedistribute(data);
+    });
+  }, []);
 
   return (
     <div className="application">
@@ -34,8 +60,8 @@ const App = () => {
             }}
             onSubmit={(e) => {
               e.preventDefault();
-              setCreation(false);
-              setRedistribute(false);
+              socketRef.current.emit("setCreation", false);
+              socketRef.current.emit("setRedistribute", false);
               setRound("");
               setRoundWinner("");
             }}
@@ -60,7 +86,7 @@ const App = () => {
                 if (winner && loser) {
                   setTimeout(() => {
                     checkGameover(loser, setGameover);
-                    setRedistribute(true);
+                    socketRef.current.emit("setRedistribute", true);
                   }, 2000);
                 }
               }}
