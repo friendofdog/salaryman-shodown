@@ -36,3 +36,11 @@ This app is a PvP game where players build a salaryman and battle them against e
 - Leader board
 
 ## Notes
+
+### Bibliography
+
+- https://stackoverflow.com/questions/42182577/is-it-possible-to-use-dotenv-in-a-react-project
+- https://hackernoon.com/how-to-build-a-multiplayer-browser-game-4a793818c29b
+- https://github.com/omgimanerd/how-to-build-a-multiplayer-browser-game
+- https://www.valentinog.com/blog/socket-react/
+- https://socket.io/docs/v3/index.html
