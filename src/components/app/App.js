@@ -97,6 +97,8 @@ const App = () => {
               socketRef.current.emit("setRoundWinner", "");
             }}
             redistribute={redistrubite}
+            winner={roundWinner}
+            user={user}
           />
         </section>
       ) : (
