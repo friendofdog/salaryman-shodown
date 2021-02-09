@@ -5,11 +5,13 @@ const getRandStat = (stats) => {
 
 const handleRound = (player1, player2, callback1, callback2, stat) => {
   const [p1score, p2score] = [player1.stats[stat].val, player2.stats[stat].val];
+  if (p1score === p2score) return [false, false];
   const loser = p1score < p2score ? player1 : player2;
+  const winner = p1score > p2score ? player1 : player2;
   const callback = p1score < p2score ? callback1 : callback2;
   loser.cp -= 1;
   callback(loser);
-  return loser;
+  return [winner, loser];
 }
 
 const updateProps = (player, callback, key, val) => {

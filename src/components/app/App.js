@@ -49,11 +49,13 @@ const App = () => {
             <Round
               getRandStat={() => {
                 const stat = getRandStat(salarymanStats);
+                const [winner, loser] = handleRound({...player1}, {...player2}, setPlayer1, setPlayer2, stat);
                 setRound(stat);
-                handleRound({...player1}, {...player2}, setPlayer1, setPlayer2, stat);
-                setTimeout(() => {
-                  setRedistribute(true);
-                }, 2000);
+                if (winner && loser) {
+                  setTimeout(() => {
+                    setRedistribute(true);
+                  }, 2000);
+                }
               }}
               round={round}
             />
