@@ -37,10 +37,10 @@ io.on("connection", (socket) => {
     players.delete(socket);
   });
 
-  socket.on("state", data => {
-    console.log("change state", data);
-    io.sockets.emit("state", data);
-  });
+  // socket.on("state", data => {
+  //   console.log("change state", data);
+  //   io.sockets.emit("state", data);
+  // });
 
   socket.on("setCreation", data => {
     console.log("setCreation", data);

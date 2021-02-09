@@ -17,8 +17,6 @@ const App = () => {
   const LOCAL = process.env.REACT_APP_LOCAL || "http://127.0.0.1"
   const SERVER_URL = process.env.REACT_APP_URL || `${LOCAL}:${SERVER_PORT}`
 
-  console.log(process.env);
-
   const [player1, setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc"));
   const [player2, setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def"));
   const [round, setRound] = useState("");
@@ -38,10 +36,10 @@ const App = () => {
       throw new Error("Too many players");
     });
 
-    socketRef.current.on("state", data => {
-      const [callback, value] = data;
-      console.log(callback, value);
-    });
+    // socketRef.current.on("state", data => {
+    //   const [callback, value] = data;
+    //   console.log(callback, value);
+    // });
 
     socketRef.current.on("setCreation", data => {
       setCreation(data);
@@ -69,10 +67,10 @@ const App = () => {
               e.preventDefault();
               socketRef.current.emit("setCreation", false);
               socketRef.current.emit("setRedistribute", false);
-              console.log(setRedistribute);
-              socketRef.current.emit("state", [setRedistribute, false]);
-              // socketRef.current.emit("setRound", "");
-              // socketRef.current.emit("setRoundWinner", "");
+              // console.log(setRedistribute);
+              // socketRef.current.emit("state", [setRedistribute, false]);
+              socketRef.current.emit("setRound", "");
+              socketRef.current.emit("setRoundWinner", "");
               setRound("");
               setRoundWinner("");
             }}
