@@ -13,7 +13,9 @@ import "./App.css";
 
 const App = () => {
   const socketRef = useRef();
-  const serverPort = process.env.SERVER_PORT || 8080;
+  const PORT = process.env.PORT || 8080;
+  const LOCAL = process.env.LOCAL || "http://127.0.0.1"
+  const URL = process.env.SERVER_URL || `${LOCAL}:${PORT}`
 
   const [player1, setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc"));
   const [player2, setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def"));
@@ -24,7 +26,7 @@ const App = () => {
   const [roundWinner, setRoundWinner] = useState("");
 
   useEffect(() => {
-    socketRef.current = socketIOClient(`http://127.0.0.1:${serverPort}`);
+    socketRef.current = socketIOClient(URL);
 
     socketRef.current.on("confirm", () => {
       console.log("socketid", socketRef.current.id);
