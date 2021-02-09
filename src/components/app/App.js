@@ -13,9 +13,9 @@ import "./App.css";
 
 const App = () => {
   const socketRef = useRef();
-  const SERVER_PORT = process.env.REACT_APP_PORT || 8080;
-  const LOCAL = process.env.REACT_APP_LOCAL || "http://127.0.0.1"
-  const SERVER_URL = process.env.REACT_APP_URL || `${LOCAL}:${SERVER_PORT}`
+  const PORT = process.env.PORT || 8080;
+  const LOCAL = process.env.LOCAL || "http://127.0.0.1"
+  const SERVER_URL = process.env.REACT_APP_URL || `${LOCAL}:${PORT}`
 
   const [player1, setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc"));
   const [player2, setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def"));

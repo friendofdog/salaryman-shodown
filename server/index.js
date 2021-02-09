@@ -4,7 +4,7 @@ const socketIo = require("socket.io");
 const path = require("path");
 require("dotenv").config();
 
-const SERVER_PORT = process.env.REACT_APP_PORT || 8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
 const server = http.createServer(app);
 
@@ -58,4 +58,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(SERVER_PORT, () => console.log(`Listening on port ${SERVER_PORT}`));
+server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
