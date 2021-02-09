@@ -13,9 +13,11 @@ import "./App.css";
 
 const App = () => {
   const socketRef = useRef();
-  const PORT = process.env.PORT || 8080;
-  const LOCAL = process.env.LOCAL || "http://127.0.0.1"
-  const URL = process.env.SERVER_URL || `${LOCAL}:${PORT}`
+  const SERVER_PORT = process.env.REACT_APP_PORT || 8080;
+  const LOCAL = process.env.REACT_APP_LOCAL || "http://127.0.0.1"
+  const SERVER_URL = process.env.REACT_APP_URL || `${LOCAL}:${SERVER_PORT}`
+
+  console.log(process.env);
 
   const [player1, setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc"));
   const [player2, setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def"));
@@ -26,7 +28,7 @@ const App = () => {
   const [roundWinner, setRoundWinner] = useState("");
 
   useEffect(() => {
-    socketRef.current = socketIOClient(URL);
+    socketRef.current = socketIOClient(SERVER_URL);
 
     socketRef.current.on("confirm", () => {
       console.log("socketid", socketRef.current.id);
@@ -36,13 +38,16 @@ const App = () => {
       throw new Error("Too many players");
     });
 
+    socketRef.current.on("state", data => {
+      const [callback, value] = data;
+      console.log(callback, value);
+    });
+
     socketRef.current.on("setCreation", data => {
-      console.log("setCreation", data);
       setCreation(data);
     });
 
     socketRef.current.on("setRedistribute", data => {
-      console.log("setRedistribute", data);
       setRedistribute(data);
     });
   }, []);
@@ -64,6 +69,10 @@ const App = () => {
               e.preventDefault();
               socketRef.current.emit("setCreation", false);
               socketRef.current.emit("setRedistribute", false);
+              console.log(setRedistribute);
+              socketRef.current.emit("state", [setRedistribute, false]);
+              // socketRef.current.emit("setRound", "");
+              // socketRef.current.emit("setRoundWinner", "");
               setRound("");
               setRoundWinner("");
             }}
@@ -83,6 +92,8 @@ const App = () => {
               getRandStat={() => {
                 const stat = getRandStat(salarymanStats);
                 const [winner, loser] = handleRound({...player1}, {...player2}, setPlayer1, setPlayer2, stat);
+                // socketRef.current.emit("setRoundWinner", winner);
+                // socketRef.current.emit("setRound", stat);
                 setRoundWinner(winner);
                 setRound(stat);
                 if (winner && loser) {

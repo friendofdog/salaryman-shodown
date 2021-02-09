@@ -2,8 +2,9 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const path = require("path");
+require("dotenv").config();
 
-const PORT = process.env.PORT || 8080;
+const SERVER_PORT = process.env.REACT_APP_PORT || 8080;
 const app = express();
 const server = http.createServer(app);
 
@@ -23,16 +24,22 @@ const players = new Set();
 
 io.on("connection", (socket) => {
   console.log("New client connected", socket.id);
-  if (players.size < 2) {
-    players.add(socket);
-    socket.emit("confirm");
-  } else {
-    socket.emit("reject");
-  }
+  // if (players.size < 2) {
+  //   players.add(socket);
+  //   socket.emit("confirm");
+  // } else {
+  //   socket.emit("reject");
+  // }
+  socket.emit("confirm");
 
   socket.on("disconnect", () => {
     console.log("Client disconnected");
     players.delete(socket);
+  });
+
+  socket.on("state", data => {
+    console.log("change state", data);
+    io.sockets.emit("state", data);
   });
 
   socket.on("setCreation", data => {
@@ -46,4 +53,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+server.listen(SERVER_PORT, () => console.log(`Listening on port ${SERVER_PORT}`));
