@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./PointDist.css";
+import kazuhide from "../../img/kazuhide.jpeg";
 
 const PointDist = (props) => {
   const {
@@ -17,42 +18,49 @@ const PointDist = (props) => {
   const noPoints = player.points <= 0;
 
   return (
-    <div className="start">
+    <div className="point-dist">
       {isWinner ? (
         <div>chotto matte...</div>
       ) : (
         <form onChange={onChange} onSubmit={onSubmit}>
           {creation ? (
             <>
-            <table>
+            <table id="personal-info">
               <tbody>
-                <tr>
+                <tr id="name-field">
                   <td>名前</td>
                   <td colSpan="2">
                     <input id="name" name="name" type="text" />
                   </td>
-                  <td>
+                  <td id="gender-field">
                     <label>男<input id="gender" name="gender" type="checkbox" value="male" /></label>
                     <label>女<input id="gender" name="gender" type="checkbox" value="female" /></label>
+                  </td>
+                  <td>
+                    <div id="profile-pic">
+                      <img alt="kazuhide" src={kazuhide} />
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td>生年月日</td>
-                  <td colSpan="3"><input id="dob" name="dob" type="text" /></td>
+                  <td colSpan="4"><input id="dob" name="dob" type="text" /></td>
                 </tr>
                 <tr>
                   <td>現住所</td>
-                  <td colSpan="2"><textarea id="address" name="address" /></td>
+                  <td colSpan="2">
+                    <textarea id="address" name="address" />
+                  </td>
+                  <td>電話</td>
                   <td>
-                    <label>電話</label><input id="phone" name="phone" type="text" />
+                    <input id="phone" name="phone" type="text" />
                   </td>
                 </tr>
                 <tr>
                   <td>連絡先</td>
                   <td colSpan="2"><textarea id="contact" name="contact" /></td>
-                  <td>
-                    <label>ファックス</label><input id="fax" name="fax" type="text" />
-                  </td>
+                  <td>ファックス</td>
+                  <td><input id="fax" name="fax" type="text" /></td>
                 </tr>
               </tbody>
             </table>
@@ -93,7 +101,7 @@ const PointDist = (props) => {
               Redistribute points?
             </div>
           )}
-          <table>
+          <table id="stats">
             <thead>
               <tr>
                 <th colSpan="2">職業訓練歴</th>
@@ -107,17 +115,16 @@ const PointDist = (props) => {
               {Object.entries(player.stats).map((stat, index) => {
                 return (
                   <tr key={index}>
+                    <td>{stat[1].name}</td>
                     <td>
-                      <label>{stat[1].name}
-                        <input
-                          id={stat[0]}
-                          name={stat[0]}
-                          type="number"
-                          min={redistribute && !noPoints ? stat[1].val : "1"}
-                          max={noPoints ? stat[1].val : "10"}
-                          defaultValue={stat[1].val}
-                        />
-                      </label>
+                      <input
+                        id={stat[0]}
+                        name={stat[0]}
+                        type="number"
+                        min={redistribute && !noPoints ? stat[1].val : "1"}
+                        max={noPoints ? stat[1].val : "10"}
+                        defaultValue={stat[1].val}
+                      />
                     </td>
                   </tr>
                 )

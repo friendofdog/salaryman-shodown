@@ -1,3 +1,45 @@
 table {
+  border: 1px solid black;
   width: 100%;
+  margin-bottom: 1rem;
+}
+
+tr {
+  outline: thin solid;
+  height: 2rem;
+}
+
+td {
+  padding-right: 20px;
+}
+
+input, textarea {
+  width: 100%;
+}
+
+.point-dist {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 2rem 3rem;
+}
+
+#personal-info td {
+  height: 2.5rem;
+}
+
+#name-field {
+  height: 6rem;
+}
+
+#gender-field {
+  text-align: center;
+}
+
+#profile-pic img {
+  width: 120px;
+  float: right;
+}
+
+#stats td {
+  width: 50%;
 }
