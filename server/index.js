@@ -56,6 +56,21 @@ io.on("connection", (socket) => {
     console.log("setRound", data);
     io.sockets.emit("setRound", data);
   });
+
+  socket.on("setPlayer1", data => {
+    console.log("setPlayer1", data);
+    io.sockets.emit("setPlayer1", data);
+  });
+
+  socket.on("setPlayer2", data => {
+    console.log("setPlayer2", data);
+    io.sockets.emit("setPlayer2", data);
+  });
+
+  socket.on("setGameover", data => {
+    console.log("setGameover", data);
+    io.sockets.emit("setGameover", data);
+  });
 });
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));

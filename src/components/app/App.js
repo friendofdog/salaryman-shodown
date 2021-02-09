@@ -51,6 +51,18 @@ const App = () => {
     socketRef.current.on("setRound", data => {
       setRound(data);
     });
+
+    socketRef.current.on("setPlayer1", data => {
+      setPlayer1(data);
+    });
+
+    socketRef.current.on("setPlayer2", data => {
+      setPlayer2(data);
+    });
+
+    socketRef.current.on("setGameover", data => {
+      setGameover(data);
+    });
   }, []);
 
   return (
@@ -64,7 +76,8 @@ const App = () => {
             creation={creation}
             player={{...player1}}
             onChange={(e) => {
-              updateProps({...player1}, setPlayer1, e.target.name, e.target.value);
+              // TODO: un-hardcode this part
+              updateProps({...player1}, "setPlayer1", socketRef, e.target.name, e.target.value);
             }}
             onSubmit={(e) => {
               e.preventDefault();
@@ -88,13 +101,13 @@ const App = () => {
             <Round
               getRandStat={() => {
                 const stat = getRandStat(salarymanStats);
-                const [winner, loser] = handleRound({...player1}, {...player2}, setPlayer1, setPlayer2, stat);
+                const [winner, loser] = handleRound({...player1}, {...player2}, stat, socketRef);
                 socketRef.current.emit("setRoundWinner", winner);
                 socketRef.current.emit("setRound", stat);
 
                 if (winner && loser) {
                   setTimeout(() => {
-                    checkGameover(loser, setGameover);
+                    checkGameover(loser, socketRef, "setGameover");
                     socketRef.current.emit("setRedistribute", true);
                   }, 2000);
                 }

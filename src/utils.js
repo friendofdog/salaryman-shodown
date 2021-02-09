@@ -1,5 +1,5 @@
-const checkGameover = (loser, callback) => {
-  if (loser.cp === 0) callback(true);
+const checkGameover = (loser, socketRef, callback) => {
+  if (loser.cp === 0) socketRef.current.emit(callback, true);
 }
 
 const getRandStat = (stats) => {
@@ -7,18 +7,18 @@ const getRandStat = (stats) => {
   return stats[keys[ keys.length * Math.random() << 0]];
 }
 
-const handleRound = (player1, player2, callback1, callback2, stat) => {
+const handleRound = (player1, player2, stat, socketRef) => {
   const [p1score, p2score] = [player1.stats[stat].val, player2.stats[stat].val];
   if (p1score === p2score) return [false, false];
   const loser = p1score < p2score ? player1 : player2;
   const winner = p1score > p2score ? player1 : player2;
-  const callback = p1score < p2score ? callback1 : callback2;
+  const callback = p1score < p2score ? "setPlayer1" : "setPlayer2";
   loser.cp -= 1;
-  callback(loser);
+  socketRef.current.emit(callback, loser);
   return [winner, loser];
 }
 
-const updateProps = (player, callback, key, val) => {
+const updateProps = (player, callback, socketRef, key, val) => {
   if (salarymanStats.includes(key)) {
     const stat = player.stats[key]
     const prev = stat.val;
@@ -27,7 +27,7 @@ const updateProps = (player, callback, key, val) => {
   } else {
     player[key] = val;
   }
-  callback(player);
+  socketRef.current.emit(callback, player)
 }
 
 const salarymanStats = [
