@@ -37,11 +37,6 @@ io.on("connection", (socket) => {
     players.delete(socket);
   });
 
-  // socket.on("state", data => {
-  //   console.log("change state", data);
-  //   io.sockets.emit("state", data);
-  // });
-
   socket.on("setCreation", data => {
     console.log("setCreation", data);
     io.sockets.emit("setCreation", data);
@@ -50,6 +45,16 @@ io.on("connection", (socket) => {
   socket.on("setRedistribute", data => {
     console.log("setRedistribute", data);
     io.sockets.emit("setRedistribute", data);
+  });
+
+  socket.on("setRoundWinner", data => {
+    console.log("setRoundWinner", data);
+    io.sockets.emit("setRoundWinner", data);
+  });
+
+  socket.on("setRound", data => {
+    console.log("setRound", data);
+    io.sockets.emit("setRound", data);
   });
 });
 

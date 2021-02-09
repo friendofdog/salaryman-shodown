@@ -36,17 +36,20 @@ const App = () => {
       throw new Error("Too many players");
     });
 
-    // socketRef.current.on("state", data => {
-    //   const [callback, value] = data;
-    //   console.log(callback, value);
-    // });
-
     socketRef.current.on("setCreation", data => {
       setCreation(data);
     });
 
     socketRef.current.on("setRedistribute", data => {
       setRedistribute(data);
+    });
+
+    socketRef.current.on("setRoundWinner", data => {
+      setRoundWinner(data);
+    });
+
+    socketRef.current.on("setRound", data => {
+      setRound(data);
     });
   }, []);
 
@@ -67,12 +70,8 @@ const App = () => {
               e.preventDefault();
               socketRef.current.emit("setCreation", false);
               socketRef.current.emit("setRedistribute", false);
-              // console.log(setRedistribute);
-              // socketRef.current.emit("state", [setRedistribute, false]);
               socketRef.current.emit("setRound", "");
               socketRef.current.emit("setRoundWinner", "");
-              setRound("");
-              setRoundWinner("");
             }}
             redistribute={redistrubite}
           />
@@ -90,10 +89,9 @@ const App = () => {
               getRandStat={() => {
                 const stat = getRandStat(salarymanStats);
                 const [winner, loser] = handleRound({...player1}, {...player2}, setPlayer1, setPlayer2, stat);
-                // socketRef.current.emit("setRoundWinner", winner);
-                // socketRef.current.emit("setRound", stat);
-                setRoundWinner(winner);
-                setRound(stat);
+                socketRef.current.emit("setRoundWinner", winner);
+                socketRef.current.emit("setRound", stat);
+
                 if (winner && loser) {
                   setTimeout(() => {
                     checkGameover(loser, setGameover);
