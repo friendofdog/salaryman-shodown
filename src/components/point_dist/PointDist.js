@@ -15,34 +15,109 @@ const PointDist = (props) => {
 
   return (
     <div className="start">
-      <p>Points remaining: {player.points}</p>
       <form onChange={onChange} onSubmit={onSubmit}>
         {creation ? (
           <>
-            <input id="company" name="company" type="text" placeholder="Company" />
-            <input id="title" name="title" type="text" placeholder="Title" />
-            <input id="name" name="name" type="text" placeholder="Name" />
+          <table>
+            <tbody>
+              <tr>
+                <td>名前</td>
+                <td colSpan="2">
+                  <input id="name" name="name" type="text" />
+                </td>
+                <td>
+                  <label>男<input id="gender" name="gender" type="checkbox" value="male" /></label>
+                  <label>女<input id="gender" name="gender" type="checkbox" value="female" /></label>
+                </td>
+              </tr>
+              <tr>
+                <td>生年月日</td>
+                <td colSpan="3"><input id="dob" name="dob" type="text" /></td>
+              </tr>
+              <tr>
+                <td>現住所</td>
+                <td colSpan="2"><textarea id="address" name="address" /></td>
+                <td>
+                  <label>電話</label><input id="phone" name="phone" type="text" />
+                </td>
+              </tr>
+              <tr>
+                <td>連絡先</td>
+                <td colSpan="2"><textarea id="contact" name="contact" /></td>
+                <td>
+                  <label>ファックス</label><input id="fax" name="fax" type="text" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th colSpan="2">職歴</th>
+              </tr>
+              <tr>
+                <th>年</th>
+                <th>月</th>
+                <th>会社名</th>
+                <th>職名</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input id="year" name="year" type="text" placeholder="1980" />
+                </td>
+                <td>
+                  <input id="month" name="month" type="text" placeholder="01" />
+                </td>
+                <td>
+                  <input id="company" name="company" type="text" placeholder="Company" />
+                </td>
+                <td>
+                  <input id="title" name="title" type="text" placeholder="Title" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
           </>
         ) : (
           <div>
             Redistribute points?
           </div>
         )}
-        {Object.entries(player.stats).map((stat, index) => {
-          return (
-            <div key={index}>
-              <label>{stat[1].name}</label>
-              <input
-                id={stat[0]}
-                name={stat[0]}
-                type="number"
-                min={redistribute && !noPoints ? stat[1].val : "1"}
-                max={noPoints ? stat[1].val : "10"}
-                defaultValue={stat[1].val}
-               />
-            </div>
-          )
-        })}
+        <table>
+          <thead>
+            <tr>
+              <th colSpan="2">職業訓練歴</th>
+            </tr>
+            <tr>
+              <td>ポイント</td>
+              <td>{player.points}</td>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(player.stats).map((stat, index) => {
+              return (
+                <tr key={index}>
+                  <td>
+                    <label>{stat[1].name}
+                      <input
+                        id={stat[0]}
+                        name={stat[0]}
+                        type="number"
+                        min={redistribute && !noPoints ? stat[1].val : "1"}
+                        max={noPoints ? stat[1].val : "10"}
+                        defaultValue={stat[1].val}
+                      />
+                    </label>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
         <input type="submit" value="Start" disabled={player.points > 0}/>
       </form>
     </div>
