@@ -4,10 +4,11 @@ import "./Salaryman.css";
 
 const Salaryman = (props) => {
   const {
-    player
+    player,
+    user
   } = props;
 
-  const visible = true;
+  const visible = user === player.id;
 
   return (
     <div className="salaryman">

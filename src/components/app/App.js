@@ -17,8 +17,12 @@ const App = () => {
   const LOCAL = process.env.LOCAL || "http://127.0.0.1"
   const SERVER_URL = process.env.REACT_APP_URL || `${LOCAL}:${PORT}`
 
-  const [player1, setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc"));
-  const [player2, setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def"));
+  const P1 = "player1";
+  const P2 = "player2";
+
+  const [user, setUser] = useState();
+  const [player1, setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc", P1));
+  const [player2, setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def", P2));
   const [round, setRound] = useState("");
   const [creation, setCreation] = useState(true);
   const [redistrubite, setRedistribute] = useState(false);
@@ -28,8 +32,9 @@ const App = () => {
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL);
 
-    socketRef.current.on("confirm", () => {
-      console.log("socketid", socketRef.current.id);
+    socketRef.current.on("confirm", data => {
+      if (data === 1) setUser(P1);
+      else setUser(P2);
     });
 
     socketRef.current.on("reject", () => {
@@ -74,10 +79,15 @@ const App = () => {
         <section>
           <PointDist 
             creation={creation}
-            player={{...player1}}
+            player={user === P1 ? {...player1} : {...player2}}
             onChange={(e) => {
-              // TODO: un-hardcode this part
-              updateProps({...player1}, "setPlayer1", socketRef, e.target.name, e.target.value);
+              updateProps(
+                user === P1 ? {...player1} : {...player2},
+                user === P1 ? "setPlayer1" : "setPlayer2",
+                socketRef,
+                e.target.name,
+                e.target.value
+              );
             }}
             onSubmit={(e) => {
               e.preventDefault();
@@ -95,6 +105,7 @@ const App = () => {
             <Arena 
               player1={player1}
               player2={player2}
+              user={user}
             />
           </section>
           <section className="round-wrapper">

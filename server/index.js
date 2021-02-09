@@ -24,13 +24,12 @@ const players = new Set();
 
 io.on("connection", (socket) => {
   console.log("New client connected", socket.id);
-  // if (players.size < 2) {
-  //   players.add(socket);
-  //   socket.emit("confirm");
-  // } else {
-  //   socket.emit("reject");
-  // }
-  socket.emit("confirm");
+  if (players.size < 2) {
+    players.add(socket);
+    socket.emit("confirm", players.size);
+  } else {
+    socket.emit("reject");
+  }
 
   socket.on("disconnect", () => {
     console.log("Client disconnected");

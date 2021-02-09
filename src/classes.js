@@ -1,5 +1,5 @@
 class Salaryman {
-  constructor(name, title, company) {
+  constructor(name, title, company, id) {
     this.stats = {
       conformity: { name: "conformity", val: 5 },
       loyalty: { name: "loyalty", val: 5 },
@@ -13,6 +13,7 @@ class Salaryman {
     this.company = company;
     this.points = 10;
     this.cp = 10;
+    this.id = id;
   }
 }
 
