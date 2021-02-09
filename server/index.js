@@ -1,8 +1,9 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
+const path = require("path");
 
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
 const server = http.createServer(app);
 
@@ -10,6 +11,12 @@ const io = socketIo(server, {
   cors: {
     origin: "*",
   }
+});
+
+app.use(express.static(path.resolve(__dirname, "..", "build")));
+
+app.get("/", (_, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
 });
 
 const players = new Set();
@@ -39,4 +46,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(port, () => console.log(`Listening on port ${port}`));
+server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
