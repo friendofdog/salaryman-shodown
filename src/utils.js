@@ -18,7 +18,7 @@ const handleRound = (player1, player2, stat, socketRef) => {
   return [winner, loser];
 }
 
-const updateProps = (player, callback, socketRef, key, val) => {
+const updateProps = (player, callback, key, val) => {
   if (salarymanStats.includes(key)) {
     const stat = player.stats[key]
     const prev = stat.val;
@@ -27,7 +27,7 @@ const updateProps = (player, callback, socketRef, key, val) => {
   } else {
     player[key] = val;
   }
-  socketRef.current.emit(callback, player)
+  callback(player);
 }
 
 const salarymanStats = [
@@ -39,4 +39,15 @@ const salarymanStats = [
   "sobriety"
 ];
 
-export { checkGameover, getRandStat, handleRound, updateProps, salarymanStats };
+const verifyInit = async (callback, socketRef) => {
+  await socketRef.current.emit(callback, (size) => {
+    if (size >= 2) {
+      socketRef.current.emit("setCreation", false);
+      socketRef.current.emit("setRedistribute", false);
+      socketRef.current.emit("setRound", "");
+      socketRef.current.emit("setRoundWinner", "");
+    }
+  });
+}
+
+export { checkGameover, getRandStat, handleRound, updateProps, salarymanStats, verifyInit };

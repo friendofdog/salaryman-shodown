@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import socketIOClient from "socket.io-client";
 
-import { checkGameover, getRandStat, handleRound, updateProps, salarymanStats } from "../../utils";
+import {
+  checkGameover,
+  getRandStat,
+  handleRound,
+  updateProps,
+  salarymanStats,
+  verifyInit
+} from "../../utils";
+
 import { Salaryman } from "../../classes";
 
 import Arena from "../arena/Arena";
@@ -85,18 +93,18 @@ const App = () => {
             onChange={(e) => {
               updateProps(
                 user === P1 ? {...player1} : {...player2},
-                user === P1 ? "setPlayer1" : "setPlayer2",
-                socketRef,
+                user === P1 ? setPlayer1 : setPlayer2,
                 e.target.name,
                 e.target.value
               );
             }}
-            onSubmit={(e) => {
+            onSubmit={ async (e) => {
               e.preventDefault();
-              socketRef.current.emit("setCreation", false);
-              socketRef.current.emit("setRedistribute", false);
-              socketRef.current.emit("setRound", "");
-              socketRef.current.emit("setRoundWinner", "");
+              await socketRef.current.emit(
+                user === P1 ? "setPlayer1" : "setPlayer2",
+                user === P1 ? {...player1} : {...player2}
+              )
+              await verifyInit("setGameInit", socketRef);
             }}
             redistribute={redistrubite}
             winner={roundWinner}
