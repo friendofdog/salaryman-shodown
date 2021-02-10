@@ -18,7 +18,7 @@ const Arena = (props) => {
 
   return (
     <div className="arena">
-      <h3>You are: {activePlayer[0].name}</h3>
+      <h2>You are: {activePlayer[0].name}</h2>
       <div className="salaryman-wrapper">
         <Salaryman player={player1} user={user} />
         <img alt="Player 1 salaryman" src={salaryman1} />
