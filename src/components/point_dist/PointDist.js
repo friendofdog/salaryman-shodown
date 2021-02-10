@@ -2,6 +2,7 @@ import React from "react";
 
 import "./PointDist.css";
 import kazuhide from "../../img/kazuhide.jpeg";
+import matte from "../../img/matte.svg";
 
 const PointDist = (props) => {
   const {
@@ -20,7 +21,9 @@ const PointDist = (props) => {
   return (
     <div className="point-dist">
       {isWinner ? (
-        <div>chotto matte...</div>
+        <div className="waiting">
+          <img alt="Chotto matte..." src={matte} />
+        </div>
       ) : (
         <form onChange={onChange} onSubmit={onSubmit}>
           {creation ? (

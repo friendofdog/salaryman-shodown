@@ -1,0 +1,16 @@
+.round-start {
+  cursor: pointer;
+}
+
+.outcome {
+  color: #fff;
+  font-size: 3rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.winning-stat {
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+}

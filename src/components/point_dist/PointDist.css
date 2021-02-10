@@ -59,3 +59,8 @@ input, textarea {
 #stats td {
   width: 50%;
 }
+
+.waiting {
+  display: block;
+  margin-bottom: 0 auto;
+}

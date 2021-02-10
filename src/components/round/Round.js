@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./Round.css";
+import startButton from "../../img/start.png";
 
 const Round = (props) => {
   const {
@@ -13,22 +14,16 @@ const Round = (props) => {
     <div className="round">
       {round && winner ? (
         <>
-          <p>{round}</p>
-          <p>{winner.name || "no one"} wins the round!</p>
+          <p className="winning-stat">{round}</p>
+          <p className="outcome">{winner.name} wins the round!</p>
         </>
       ) : round ? (
         <>
-          <p>{winner.name || "no one"} wins the round!</p>
-          <button
-            onClick={getRandStat}>
-              Start!
-          </button>
+          <img className="round-start" alt="start a round" src={startButton} onClick={getRandStat} />
+          <p className="outcome">Draw!</p>
         </>
       ) : ( 
-        <button
-          onClick={getRandStat}>
-            Start!
-        </button>
+        <img className="round-start" alt="start a round" src={startButton} onClick={getRandStat} />
       )}
    </div>
   );
