@@ -25,76 +25,79 @@ const PointDist = (props) => {
         <form onChange={onChange} onSubmit={onSubmit}>
           {creation ? (
             <>
-            <table id="personal-info">
-              <tbody>
-                <tr id="name-field">
-                  <td>名前</td>
-                  <td colSpan="2">
-                    <input id="name" name="name" type="text" />
-                  </td>
-                  <td id="gender-field">
-                    <label>男<input id="gender" name="gender" type="checkbox" value="male" /></label>
-                    <label>女<input id="gender" name="gender" type="checkbox" value="female" /></label>
-                  </td>
-                  <td>
-                    <div id="profile-pic">
-                      <img alt="kazuhide" src={kazuhide} />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>生年月日</td>
-                  <td colSpan="4"><input id="dob" name="dob" type="text" /></td>
-                </tr>
-                <tr>
-                  <td>現住所</td>
-                  <td colSpan="2">
-                    <textarea id="address" name="address" />
-                  </td>
-                  <td>電話</td>
-                  <td>
-                    <input id="phone" name="phone" type="text" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>連絡先</td>
-                  <td colSpan="2"><textarea id="contact" name="contact" /></td>
-                  <td>ファックス</td>
-                  <td><input id="fax" name="fax" type="text" /></td>
-                </tr>
-              </tbody>
-            </table>
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th colSpan="2">職歴</th>
-                </tr>
-                <tr>
-                  <th>年</th>
-                  <th>月</th>
-                  <th>会社名</th>
-                  <th>職名</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input id="year" name="year" type="text" placeholder="1980" />
-                  </td>
-                  <td>
-                    <input id="month" name="month" type="text" placeholder="01" />
-                  </td>
-                  <td>
-                    <input id="company" name="company" type="text" placeholder="Company" />
-                  </td>
-                  <td>
-                    <input id="title" name="title" type="text" placeholder="Title" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              <table id="personal-info">
+                <thead>
+                  <tr>
+                    <th colSpan="5">履歴書</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr id="name-field">
+                    <td>名前</td>
+                    <td colSpan="2">
+                      <input id="name" name="name" type="text" />
+                    </td>
+                    <td id="gender-field">
+                      <label>男<input id="gender" name="gender" type="checkbox" value="male" /></label>
+                      <label>女<input id="gender" name="gender" type="checkbox" value="female" /></label>
+                    </td>
+                    <td>
+                      <div id="profile-pic">
+                        <img alt="kazuhide" src={kazuhide} />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>生年月日</td>
+                    <td colSpan="4"><input id="dob" name="dob" type="text" /></td>
+                  </tr>
+                  <tr>
+                    <td>現住所</td>
+                    <td colSpan="2">
+                      <textarea id="address" name="address" />
+                    </td>
+                    <td>電話</td>
+                    <td>
+                      <input id="phone" name="phone" type="text" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>連絡先</td>
+                    <td colSpan="2"><textarea id="contact" name="contact" /></td>
+                    <td>ファックス</td>
+                    <td><input id="fax" name="fax" type="text" /></td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <th colSpan="4">職歴</th>
+                  </tr>
+                  <tr>
+                    <th>年</th>
+                    <th>月</th>
+                    <th>会社名</th>
+                    <th>職名</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input id="year" name="year" type="text" placeholder="1980" />
+                    </td>
+                    <td>
+                      <input id="month" name="month" type="text" placeholder="01" />
+                    </td>
+                    <td>
+                      <input id="company" name="company" type="text" placeholder="Company" />
+                    </td>
+                    <td>
+                      <input id="title" name="title" type="text" placeholder="Title" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </>
           ) : (
             <div>

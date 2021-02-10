@@ -71,9 +71,11 @@ const App = () => {
   }, []);
 
   return (
-    <div className="application">
+    <div className={creation || redistrubite ? "point-dist application" : "arena application"}>
       <header className="title-wrapper">
-        <Title />
+        <Title 
+          showImg={!creation && !redistrubite}
+        />
       </header>
       {gameover ? <Gameover winner={roundWinner} /> : creation || redistrubite ? (
         <section>
