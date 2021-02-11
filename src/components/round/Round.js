@@ -12,19 +12,21 @@ const Round = (props) => {
 
   return (
     <div className="round">
-      {round && winner ? (
-        <>
-          <p className="winning-stat">{round}</p>
-          <p className="outcome">{winner.name} wins the round!</p>
-        </>
-      ) : round ? (
-        <>
+      <div>
+        {round && winner ? (
+          <>
+            <p className="winning-stat">{round}</p>
+            <p className="outcome">{winner.name} wins the round!</p>
+          </>
+        ) : round ? (
+          <>
+            <img className="round-start" alt="start a round" src={startButton} onClick={handleRound} />
+            <p className="outcome">Draw!</p>
+          </>
+        ) : ( 
           <img className="round-start" alt="start a round" src={startButton} onClick={handleRound} />
-          <p className="outcome">Draw!</p>
-        </>
-      ) : ( 
-        <img className="round-start" alt="start a round" src={startButton} onClick={handleRound} />
-      )}
+        )}
+    </div>
    </div>
   );
 }
