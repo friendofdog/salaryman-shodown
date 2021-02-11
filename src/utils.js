@@ -1,5 +1,5 @@
 const checkGameover = (loser, socketRef, callback) => {
-  if (loser.cp === 0) socketRef.current.emit(callback, true);
+  if (loser.cp === 0) socketRef.current.emit("state", callback, true);
 }
 
 const getRandStat = (stats) => {
@@ -14,7 +14,7 @@ const handleRound = (player1, player2, stat, socketRef) => {
   const winner = p1score > p2score ? player1 : player2;
   const callback = p1score < p2score ? "setPlayer1" : "setPlayer2";
   loser.cp -= 1;
-  socketRef.current.emit(callback, loser);
+  socketRef.current.emit("state", callback, loser);
   return [winner, loser];
 }
 
@@ -42,10 +42,10 @@ const salarymanStats = [
 const verifyInit = async (callback, socketRef) => {
   await socketRef.current.emit(callback, (size) => {
     if (size >= 2) {
-      socketRef.current.emit("setCreation", false);
-      socketRef.current.emit("setRedistribute", false);
-      socketRef.current.emit("setRound", "");
-      socketRef.current.emit("setRoundWinner", "");
+      socketRef.current.emit("state", "setCreation", false);
+      socketRef.current.emit("state", "setRedistribute", false);
+      socketRef.current.emit("state", "setRound", "");
+      socketRef.current.emit("state", "setRoundWinner", "");
     }
   });
 }
