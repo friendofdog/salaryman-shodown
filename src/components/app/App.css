@@ -5,9 +5,3 @@
 .arena {
   background-color: brown;
 }
-
-.round-wrapper {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}

@@ -2,12 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import socketIOClient from "socket.io-client";
 
 import {
-  checkGameover,
-  getRandStat,
   handleRound,
-  updateProps,
-  salarymanStats,
-  verifyInit
+  handlePointDistChange,
+  handlePointDistSubmit,
+  initialiseGame
 } from "../../utils";
 
 import { Salaryman } from "../../classes";
@@ -27,120 +25,83 @@ const App = () => {
 
   const P1 = "player1";
   const P2 = "player2";
+  
+  const state = {};
 
-  const [user, setUser] = useState();
-  const [player1, setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc", P1));
-  const [player2, setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def", P2));
-  const [round, setRound] = useState("");
-  const [creation, setCreation] = useState(true);
-  const [redistrubite, setRedistribute] = useState(false);
-  const [gameover, setGameover] = useState(false);
-  const [roundWinner, setRoundWinner] = useState("");
+  [state.user, state.setUser] = useState();
+  [state.player1, state.setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc", P1));
+  [state.player2, state.setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def", P2));
+  [state.round, state.setRound] = useState("");
+  [state.creation, state.setCreation] = useState(true);
+  [state.redistrubite, state.setRedistribute] = useState(false);
+  [state.gameover, state.setGameover] = useState(false);
+  [state.roundWinner, state.setRoundWinner] = useState("");
+  [state.gameInit, state.setGameInit] = useState([]);
 
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL);
 
     socketRef.current.on("confirm", data => {
-      if (data === 1) setUser(P1);
-      else setUser(P2);
+      if (data === 1) state.setUser(P1);
+      else state.setUser(P2);
     });
 
     socketRef.current.on("reject", () => {
       throw new Error("Too many players");
     });
 
-    socketRef.current.on("setCreation", data => {
-      setCreation(data);
-    });
-
-    socketRef.current.on("setRedistribute", data => {
-      setRedistribute(data);
-    });
-
-    socketRef.current.on("setRoundWinner", data => {
-      setRoundWinner(data);
-    });
-
-    socketRef.current.on("setRound", data => {
-      setRound(data);
-    });
-
-    socketRef.current.on("setPlayer1", data => {
-      setPlayer1(data);
-    });
-
-    socketRef.current.on("setPlayer2", data => {
-      setPlayer2(data);
-    });
-
-    socketRef.current.on("setGameover", data => {
-      setGameover(data);
+    socketRef.current.on("state", (callback, data=null) => {
+      state[callback](data);
     });
   }, []);
 
-  return (
-    <div className={creation || redistrubite ? "point-dist application" : "arena application"}>
-      <header className="title-wrapper">
-        <Title 
-          showImg={!creation && !redistrubite}
-        />
-      </header>
-      {gameover ? <Gameover winner={roundWinner} /> : creation || redistrubite ? (
-        <section>
-          <PointDist 
-            creation={creation}
-            player={user === P1 ? {...player1} : {...player2}}
-            onChange={(e) => {
-              updateProps(
-                user === P1 ? {...player1} : {...player2},
-                user === P1 ? setPlayer1 : setPlayer2,
-                e.target.name,
-                e.target.value
-              );
-            }}
-            onSubmit={ async (e) => {
-              e.preventDefault();
-              await socketRef.current.emit(
-                user === P1 ? "setPlayer1" : "setPlayer2",
-                user === P1 ? {...player1} : {...player2}
-              )
-              await verifyInit("setGameInit", socketRef);
-            }}
-            redistribute={redistrubite}
-            winner={roundWinner}
-            user={user}
-          />
-        </section>
-      ) : (
-        <>
-          <section className="arena-wrapper">
-            <Arena 
-              player1={player1}
-              player2={player2}
-              user={user}
-            />
-          </section>
-          <section className="round-wrapper">
-            <Round
-              getRandStat={() => {
-                const stat = getRandStat(salarymanStats);
-                const [winner, loser] = handleRound({...player1}, {...player2}, stat, socketRef);
-                socketRef.current.emit("setRoundWinner", winner);
-                socketRef.current.emit("setRound", stat);
+  useEffect(() => {
+    initialiseGame(socketRef, state.gameInit);
+  }, [state.gameInit]);
 
-                if (winner && loser) {
-                  setTimeout(() => {
-                    checkGameover(loser, socketRef, "setGameover");
-                    socketRef.current.emit("setRedistribute", true);
-                  }, 2000);
-                }
-              }}
-              round={round}
-              winner={roundWinner}
-            />
-          </section>
+  return (
+    <div className={state.creation || state.redistrubite ? "application" : "application arena"}>
+      <Title 
+        showImg={!state.creation && !state.redistrubite}
+      />
+
+      {state.gameover ? (
+      
+        <Gameover winner={state.roundWinner} />
+      
+      ) : state.creation || state.redistrubite ? (
+
+        <PointDist 
+          creation={state.creation}
+          player={state.user === P1 ? {...state.player1} : {...state.player2}}
+          onChange={(e) => {
+            handlePointDistChange(e.target.name, e.target.value, state, P1)
+          }}
+          onSubmit={(e) => {
+            handlePointDistSubmit(e, socketRef, state, P1)
+          }}
+          redistribute={state.redistrubite}
+          winner={state.roundWinner}
+          user={state.user}
+        />
+
+      ) : (
+
+        <>
+          <Arena 
+            player1={state.player1}
+            player2={state.player2}
+            user={state.user}
+          />
+          <Round
+            handleRound={() => handleRound(state, socketRef)}
+            round={state.round}
+            winner={state.roundWinner}
+          />
         </>
+
       )}
+
     </div>
   );
 }
