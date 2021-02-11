@@ -43,18 +43,22 @@ const handlePointDistSubmit = async (e, socketRef, state, P1) => {
     state.user === P1 ? "setPlayer1" : "setPlayer2",
     state.user === P1 ? {...state.player1} : {...state.player2}
   )
-  await verifyInit("setGameInit", socketRef);
+  const users = [...state.gameInit];
+  users.push(state.user);
+  socketRef.current.emit("state", "setGameInit", users);
 }
 
-const verifyInit = async (callback, socketRef) => {
-  await socketRef.current.emit(callback, (size) => {
-    if (size >= 2) {
-      socketRef.current.emit("state", "setCreation", false);
-      socketRef.current.emit("state", "setRedistribute", false);
-      socketRef.current.emit("state", "setRound", "");
-      socketRef.current.emit("state", "setRoundWinner", "");
-    }
-  });
+/*
+ *  PointDist: creation
+ */
+
+const initialiseGame = (socketRef, gameInit) => {
+  if (gameInit.length >= 2) {
+    socketRef.current.emit("state", "setCreation", false);
+    socketRef.current.emit("state", "setRedistribute", false);
+    socketRef.current.emit("state", "setRound", "");
+    socketRef.current.emit("state", "setRoundWinner", "");
+  }
 }
 
 /*
@@ -99,4 +103,5 @@ export {
   handleRound,
   handlePointDistChange,
   handlePointDistSubmit,
+  initialiseGame
 };

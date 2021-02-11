@@ -5,6 +5,7 @@ import {
   handleRound,
   handlePointDistChange,
   handlePointDistSubmit,
+  initialiseGame
 } from "../../utils";
 
 import { Salaryman } from "../../classes";
@@ -35,6 +36,7 @@ const App = () => {
   [state.redistrubite, state.setRedistribute] = useState(false);
   [state.gameover, state.setGameover] = useState(false);
   [state.roundWinner, state.setRoundWinner] = useState("");
+  [state.gameInit, state.setGameInit] = useState([]);
 
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL);
@@ -52,6 +54,10 @@ const App = () => {
       state[callback](data);
     });
   }, []);
+
+  useEffect(() => {
+    initialiseGame(socketRef, state.gameInit);
+  }, [state.gameInit]);
 
   return (
     <div className={state.creation || state.redistrubite ? "application" : "application arena"}>

@@ -21,7 +21,6 @@ app.get("/", (_, res) => {
 });
 
 const players = new Set();
-const gameInit = new Set();
 
 io.on("connection", (socket) => {
   console.log("New client connected", socket.id);
@@ -35,17 +34,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Client disconnected");
     players.delete(socket);
-    gameInit.delete(socket);
   });
 
-  socket.on("setGameInit", (callback) => {
-    console.log("setGameInit");
-    gameInit.add(socket);
-    callback(gameInit.size);
-  });
-
-  socket.on("state", (callback, data) => {
-    io.sockets.emit("state", callback, data);
+  socket.on("state", (hook, data) => {
+    io.sockets.emit("state", hook, data);
   });
 });
 
