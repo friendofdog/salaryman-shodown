@@ -54,42 +54,44 @@ const App = () => {
   }, []);
 
   return (
-    <div className={state.creation || state.redistrubite ? "point-dist application" : "arena application"}>
-      <header className="title-wrapper">
-        <Title 
-          showImg={!state.creation && !state.redistrubite}
+    <div className={state.creation || state.redistrubite ? "application" : "application arena"}>
+      <Title 
+        showImg={!state.creation && !state.redistrubite}
+      />
+
+      {state.gameover ? (
+      
+        <Gameover winner={state.roundWinner} />
+      
+      ) : state.creation || state.redistrubite ? (
+
+        <PointDist 
+          creation={state.creation}
+          player={state.user === P1 ? {...state.player1} : {...state.player2}}
+          onChange={(e) => handlePointDistChange(e, state, P1)}
+          onSubmit={(e) => handlePointDistSubmit(e, socketRef, state, P1)}
+          redistribute={state.redistrubite}
+          winner={state.roundWinner}
+          user={state.user}
         />
-      </header>
-      {state.gameover ? <Gameover winner={state.roundWinner} /> : state.creation || state.redistrubite ? (
-        <section>
-          <PointDist 
-            creation={state.creation}
-            player={state.user === P1 ? {...state.player1} : {...state.player2}}
-            onChange={(e) => handlePointDistChange(e, state, P1)}
-            onSubmit={(e) => handlePointDistSubmit(e, socketRef, state, P1)}
-            redistribute={state.redistrubite}
-            winner={state.roundWinner}
+
+      ) : (
+
+        <>
+          <Arena 
+            player1={state.player1}
+            player2={state.player2}
             user={state.user}
           />
-        </section>
-      ) : (
-        <>
-          <section className="arena-wrapper">
-            <Arena 
-              player1={state.player1}
-              player2={state.player2}
-              user={state.user}
-            />
-          </section>
-          <section className="round-wrapper">
-            <Round
-              handleRound={() => handleRound(state, socketRef)}
-              round={state.round}
-              winner={state.roundWinner}
-            />
-          </section>
+          <Round
+            handleRound={() => handleRound(state, socketRef)}
+            round={state.round}
+            winner={state.roundWinner}
+          />
         </>
+
       )}
+
     </div>
   );
 }
