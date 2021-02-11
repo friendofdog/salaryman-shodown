@@ -2,12 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import socketIOClient from "socket.io-client";
 
 import {
-  checkGameover,
-  getRandStat,
   handleRound,
-  updateProps,
-  salarymanStats,
-  verifyInit
+  handlePointDistChange,
+  handlePointDistSubmit,
 } from "../../utils";
 
 import { Salaryman } from "../../classes";
@@ -68,23 +65,8 @@ const App = () => {
           <PointDist 
             creation={state.creation}
             player={state.user === P1 ? {...state.player1} : {...state.player2}}
-            onChange={(e) => {
-              updateProps(
-                state.user === P1 ? {...state.player1} : {...state.player2},
-                state.user === P1 ? state.setPlayer1 : state.setPlayer2,
-                e.target.name,
-                e.target.value
-              );
-            }}
-            onSubmit={ async (e) => {
-              e.preventDefault();
-              await socketRef.current.emit(
-                "state",
-                state.user === P1 ? "setPlayer1" : "setPlayer2",
-                state.user === P1 ? {...state.player1} : {...state.player2}
-              )
-              await verifyInit("setGameInit", socketRef);
-            }}
+            onChange={(e) => handlePointDistChange(e, state, P1)}
+            onSubmit={(e) => handlePointDistSubmit(e, socketRef, state, P1)}
             redistribute={state.redistrubite}
             winner={state.roundWinner}
             user={state.user}
@@ -101,19 +83,7 @@ const App = () => {
           </section>
           <section className="round-wrapper">
             <Round
-              getRandStat={() => {
-                const stat = getRandStat(salarymanStats);
-                const [winner, loser] = handleRound({...state.player1}, {...state.player2}, stat, socketRef);
-                socketRef.current.emit("state", "setRoundWinner", winner);
-                socketRef.current.emit("state", "setRound", stat);
-
-                if (winner && loser) {
-                  setTimeout(() => {
-                    checkGameover(loser, socketRef, "setGameover");
-                    socketRef.current.emit("state", "setRedistribute", true);
-                  }, 2000);
-                }
-              }}
+              handleRound={() => handleRound(state, socketRef)}
               round={state.round}
               winner={state.roundWinner}
             />
