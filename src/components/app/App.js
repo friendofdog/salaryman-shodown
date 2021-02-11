@@ -74,8 +74,12 @@ const App = () => {
         <PointDist 
           creation={state.creation}
           player={state.user === P1 ? {...state.player1} : {...state.player2}}
-          onChange={(e) => handlePointDistChange(e, state, P1)}
-          onSubmit={(e) => handlePointDistSubmit(e, socketRef, state, P1)}
+          onChange={(e) => {
+            handlePointDistChange(e.target.name, e.target.value, state, P1)
+          }}
+          onSubmit={(e) => {
+            handlePointDistSubmit(e, socketRef, state, P1)
+          }}
           redistribute={state.redistrubite}
           winner={state.roundWinner}
           user={state.user}
