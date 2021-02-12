@@ -11,6 +11,7 @@ const PointDist = (props) => {
     onChange,
     onSubmit,
     redistribute,
+    redistInit,
     winner,
     user,
   } = props;
@@ -145,7 +146,10 @@ const PointDist = (props) => {
               </table>
             </>
           ) : (
-            <div>Redistribute points?</div>
+            <div className="redistribute">
+              <h1>Redistribute a point?</h1>
+              <p>Optional: choose ONE point to redistrubute!</p>
+            </div>
           )}
           <table id="stats">
             <thead>
@@ -170,6 +174,7 @@ const PointDist = (props) => {
                         min={redistribute && !noPoints ? stat[1].val : "1"}
                         max={noPoints ? stat[1].val : "10"}
                         defaultValue={stat[1].val}
+                        disabled={redistribute && noPoints && !redistInit}
                       />
                     </td>
                   </tr>

@@ -41,6 +41,7 @@ const App = () => {
   [state.gameover, state.setGameover] = useState(false);
   [state.roundWinner, state.setRoundWinner] = useState("");
   [state.gameInit, state.setGameInit] = useState([]);
+  [state.redistInit, state.setRedistInit] = useState(false);
 
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL);
@@ -88,6 +89,7 @@ const App = () => {
             handlePointDistSubmit(e, socketRef, state, P1);
           }}
           redistribute={state.redistrubite}
+          redistInit={state.redistInit}
           winner={state.roundWinner}
           user={state.user}
         />
