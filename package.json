@@ -20,7 +20,8 @@
     "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --fix src"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +42,16 @@
     ]
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-problems": "^5.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "prettier-quick": "^0.0.5"
   }
 }
