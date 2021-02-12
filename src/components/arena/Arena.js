@@ -6,13 +6,9 @@ import salaryman1 from "../../img/salaryman1.jpg";
 import salaryman2 from "../../img/salaryman2.jpg";
 
 const Arena = (props) => {
-  const {
-    player1,
-    player2,
-    user
-  } = props;
+  const { player1, player2, user } = props;
 
-  const activePlayer = [player1, player2].filter(p => {
+  const activePlayer = [player1, player2].filter((p) => {
     return p.id === user;
   });
 
@@ -27,6 +23,6 @@ const Arena = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default Arena;

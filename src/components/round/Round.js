@@ -4,11 +4,7 @@ import "./Round.css";
 import startButton from "../../img/start.png";
 
 const Round = (props) => {
-  const {
-    handleRound,
-    round,
-    winner
-  } = props;
+  const { handleRound, round, winner } = props;
 
   return (
     <div className="round">
@@ -20,15 +16,25 @@ const Round = (props) => {
           </>
         ) : round ? (
           <>
-            <img className="round-start" alt="start a round" src={startButton} onClick={handleRound} />
+            <img
+              className="round-start"
+              alt="start a round"
+              src={startButton}
+              onClick={handleRound}
+            />
             <p className="outcome">Draw!</p>
           </>
-        ) : ( 
-          <img className="round-start" alt="start a round" src={startButton} onClick={handleRound} />
+        ) : (
+          <img
+            className="round-start"
+            alt="start a round"
+            src={startButton}
+            onClick={handleRound}
+          />
         )}
+      </div>
     </div>
-   </div>
   );
-}
+};
 
 export default Round;

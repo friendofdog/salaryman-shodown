@@ -5,7 +5,7 @@ import {
   handleRound,
   handlePointDistChange,
   handlePointDistSubmit,
-  initialiseGame
+  initialiseGame,
 } from "../../utils";
 
 import { Salaryman } from "../../classes";
@@ -20,17 +20,21 @@ import "./App.css";
 const App = () => {
   const socketRef = useRef();
   const PORT = process.env.PORT || 8080;
-  const LOCAL = process.env.LOCAL || "http://127.0.0.1"
-  const SERVER_URL = process.env.REACT_APP_URL || `${LOCAL}:${PORT}`
+  const LOCAL = process.env.LOCAL || "http://127.0.0.1";
+  const SERVER_URL = process.env.REACT_APP_URL || `${LOCAL}:${PORT}`;
 
   const P1 = "player1";
   const P2 = "player2";
-  
+
   const state = {};
 
   [state.user, state.setUser] = useState();
-  [state.player1, state.setPlayer1] = useState(new Salaryman("Yoshiro", "Chief Director", "Abc", P1));
-  [state.player2, state.setPlayer2] = useState(new Salaryman("Yoshitaka", "Cybersecurity Head", "Def", P2));
+  [state.player1, state.setPlayer1] = useState(
+    new Salaryman("Yoshiro", "Chief Director", "Abc", P1),
+  );
+  [state.player2, state.setPlayer2] = useState(
+    new Salaryman("Yoshitaka", "Cybersecurity Head", "Def", P2),
+  );
   [state.round, state.setRound] = useState("");
   [state.creation, state.setCreation] = useState(true);
   [state.redistrubite, state.setRedistribute] = useState(false);
@@ -41,7 +45,7 @@ const App = () => {
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL);
 
-    socketRef.current.on("confirm", data => {
+    socketRef.current.on("confirm", (data) => {
       if (data === 1) state.setUser(P1);
       else state.setUser(P2);
     });
@@ -50,7 +54,7 @@ const App = () => {
       throw new Error("Too many players");
     });
 
-    socketRef.current.on("state", (callback, data=null) => {
+    socketRef.current.on("state", (callback, data = null) => {
       state[callback](data);
     });
   }, []);
@@ -60,35 +64,36 @@ const App = () => {
   }, [state.gameInit]);
 
   return (
-    <div className={state.creation || state.redistrubite ? "application" : "application arena"}>
-      <Title 
-        showImg={!state.creation && !state.redistrubite}
-      />
+    <div
+      className={
+        state.creation || state.redistrubite
+          ? "application"
+          : "application arena"
+      }
+    >
+      <Title showImg={!state.creation && !state.redistrubite} />
 
       {state.gameover ? (
-      
         <Gameover winner={state.roundWinner} />
-      
       ) : state.creation || state.redistrubite ? (
-
-        <PointDist 
+        <PointDist
           creation={state.creation}
-          player={state.user === P1 ? {...state.player1} : {...state.player2}}
+          player={
+            state.user === P1 ? { ...state.player1 } : { ...state.player2 }
+          }
           onChange={(e) => {
-            handlePointDistChange(e.target.name, e.target.value, state, P1)
+            handlePointDistChange(e.target.name, e.target.value, state, P1);
           }}
           onSubmit={(e) => {
-            handlePointDistSubmit(e, socketRef, state, P1)
+            handlePointDistSubmit(e, socketRef, state, P1);
           }}
           redistribute={state.redistrubite}
           winner={state.roundWinner}
           user={state.user}
         />
-
       ) : (
-
         <>
-          <Arena 
+          <Arena
             player1={state.player1}
             player2={state.player2}
             user={state.user}
@@ -99,11 +104,9 @@ const App = () => {
             winner={state.roundWinner}
           />
         </>
-
       )}
-
     </div>
   );
-}
+};
 
 export default App;

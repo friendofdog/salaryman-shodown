@@ -7,11 +7,9 @@ const Gameover = (props) => {
 
   return (
     <div className="gameover">
-      <p className="game-winner">
-        {winner.name} wins the game!
-      </p>
+      <p className="game-winner">{winner.name} wins the game!</p>
     </div>
   );
-}
+};
 
 export default Gameover;
