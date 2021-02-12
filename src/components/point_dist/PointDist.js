@@ -12,7 +12,7 @@ const PointDist = (props) => {
     onSubmit,
     redistribute,
     winner,
-    user
+    user,
   } = props;
 
   const isWinner = winner.id === user;
@@ -41,8 +41,24 @@ const PointDist = (props) => {
                       <input id="name" name="name" type="text" />
                     </td>
                     <td id="gender-field">
-                      <label>男<input id="gender" name="gender" type="checkbox" value="male" /></label>
-                      <label>女<input id="gender" name="gender" type="checkbox" value="female" /></label>
+                      <label>
+                        男
+                        <input
+                          id="gender"
+                          name="gender"
+                          type="checkbox"
+                          value="male"
+                        />
+                      </label>
+                      <label>
+                        女
+                        <input
+                          id="gender"
+                          name="gender"
+                          type="checkbox"
+                          value="female"
+                        />
+                      </label>
                     </td>
                     <td>
                       <div id="profile-pic">
@@ -52,7 +68,9 @@ const PointDist = (props) => {
                   </tr>
                   <tr>
                     <td>生年月日</td>
-                    <td colSpan="4"><input id="dob" name="dob" type="text" /></td>
+                    <td colSpan="4">
+                      <input id="dob" name="dob" type="text" />
+                    </td>
                   </tr>
                   <tr>
                     <td>現住所</td>
@@ -66,9 +84,13 @@ const PointDist = (props) => {
                   </tr>
                   <tr>
                     <td>連絡先</td>
-                    <td colSpan="2"><textarea id="contact" name="contact" /></td>
+                    <td colSpan="2">
+                      <textarea id="contact" name="contact" />
+                    </td>
                     <td>ファックス</td>
-                    <td><input id="fax" name="fax" type="text" /></td>
+                    <td>
+                      <input id="fax" name="fax" type="text" />
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -87,25 +109,43 @@ const PointDist = (props) => {
                 <tbody>
                   <tr>
                     <td>
-                      <input id="year" name="year" type="text" placeholder="1980" />
+                      <input
+                        id="year"
+                        name="year"
+                        type="text"
+                        placeholder="1980"
+                      />
                     </td>
                     <td>
-                      <input id="month" name="month" type="text" placeholder="01" />
+                      <input
+                        id="month"
+                        name="month"
+                        type="text"
+                        placeholder="01"
+                      />
                     </td>
                     <td>
-                      <input id="company" name="company" type="text" placeholder="Company" />
+                      <input
+                        id="company"
+                        name="company"
+                        type="text"
+                        placeholder="Company"
+                      />
                     </td>
                     <td>
-                      <input id="title" name="title" type="text" placeholder="Title" />
+                      <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        placeholder="Title"
+                      />
                     </td>
                   </tr>
                 </tbody>
               </table>
             </>
           ) : (
-            <div>
-              Redistribute points?
-            </div>
+            <div>Redistribute points?</div>
           )}
           <table id="stats">
             <thead>
@@ -133,15 +173,15 @@ const PointDist = (props) => {
                       />
                     </td>
                   </tr>
-                )
+                );
               })}
             </tbody>
           </table>
-          <input type="submit" value="Start" disabled={player.points > 0}/>
+          <input type="submit" value="Start" disabled={player.points > 0} />
         </form>
       )}
     </div>
   );
-}
+};
 
 export default PointDist;

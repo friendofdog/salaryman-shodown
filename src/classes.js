@@ -6,8 +6,8 @@ class Salaryman {
       karaoke: { name: "karaoke skill", val: 5 },
       mucus: { name: "mucus production", val: 5 },
       senority: { name: "senority", val: 5 },
-      sobriety: { name: "sobriety", val: 5 }
-    }
+      sobriety: { name: "sobriety", val: 5 },
+    };
     this.name = name;
     this.title = title;
     this.company = company;
