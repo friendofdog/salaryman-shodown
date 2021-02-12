@@ -37,7 +37,7 @@ const App = () => {
   );
   [state.round, state.setRound] = useState("");
   [state.creation, state.setCreation] = useState(true);
-  [state.redistrubite, state.setRedistribute] = useState(false);
+  [state.redistribute, state.setRedistribute] = useState(false);
   [state.gameover, state.setGameover] = useState(false);
   [state.roundWinner, state.setRoundWinner] = useState("");
   [state.gameInit, state.setGameInit] = useState([]);
@@ -67,16 +67,16 @@ const App = () => {
   return (
     <div
       className={
-        state.creation || state.redistrubite
+        state.creation || state.redistribute
           ? "application"
           : "application arena"
       }
     >
-      <Title showImg={!state.creation && !state.redistrubite} />
+      <Title showImg={!state.creation && !state.redistribute} />
 
       {state.gameover ? (
         <Gameover winner={state.roundWinner} />
-      ) : state.creation || state.redistrubite ? (
+      ) : state.creation || state.redistribute ? (
         <PointDist
           creation={state.creation}
           player={
@@ -88,7 +88,7 @@ const App = () => {
           onSubmit={(e) => {
             handlePointDistSubmit(e, socketRef, state, P1);
           }}
-          redistribute={state.redistrubite}
+          redistribute={state.redistribute}
           redistInit={state.redistInit}
           winner={state.roundWinner}
           user={state.user}
