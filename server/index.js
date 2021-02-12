@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const path = require("path");
+
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
@@ -11,7 +13,7 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: "*",
-  }
+  },
 });
 
 app.use(express.static(path.resolve(__dirname, "..", "build")));
