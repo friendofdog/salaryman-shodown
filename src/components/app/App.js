@@ -42,6 +42,7 @@ const App = () => {
   [state.roundWinner, state.setRoundWinner] = useState("");
   [state.gameInit, state.setGameInit] = useState([]);
   [state.redistInit, state.setRedistInit] = useState(false);
+  [state.redistCountdown, state.setRedistCountdown] = useState(-1);
 
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL);
@@ -63,6 +64,25 @@ const App = () => {
   useEffect(() => {
     initialiseGame(socketRef, state.gameInit);
   }, [state.gameInit]);
+
+  useEffect(async () => {
+    if (!state.creation && state.redistribute) {
+      state.setRedistCountdown(10);
+    }
+  }, [state.redistribute]);
+
+  useEffect(() => {
+    if (!state.creation && state.redistribute) {
+      if (state.redistCountdown > 0) {
+        setTimeout(() => {
+          const count = state.redistCountdown - 1;
+          state.setRedistCountdown(count);
+        }, 1000);
+      } else {
+        initialiseGame(socketRef, state.gameInit);
+      }
+    }
+  }, [state.redistCountdown]);
 
   return (
     <div
@@ -89,6 +109,7 @@ const App = () => {
             handlePointDistSubmit(e, socketRef, state, P1);
           }}
           redistribute={state.redistribute}
+          redistCountdown={state.redistCountdown}
           redistInit={state.redistInit}
           winner={state.roundWinner}
           user={state.user}

@@ -11,6 +11,7 @@ const PointDist = (props) => {
     onChange,
     onSubmit,
     redistribute,
+    redistCountdown,
     redistInit,
     winner,
     user,
@@ -149,6 +150,7 @@ const PointDist = (props) => {
             <div className="redistribute">
               <h1>Redistribute a point?</h1>
               <p>Optional: choose ONE point to redistrubute!</p>
+              <p>Time remaining: {redistCountdown}</p>
             </div>
           )}
           <table id="stats">
