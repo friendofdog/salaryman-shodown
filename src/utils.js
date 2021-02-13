@@ -12,6 +12,7 @@ const salarymanStats = [
  */
 
 const handlePointDistChange = (key, val, state, P1) => {
+  state.setRedistInit(false);
   const player =
     state.user === P1 ? { ...state.player1 } : { ...state.player2 };
   const hook = state.user === P1 ? state.setPlayer1 : state.setPlayer2;
@@ -97,6 +98,7 @@ const handleRound = (state, socketRef) => {
   socketRef.current.emit("state", "setRound", stat);
 
   if (winner && loser) {
+    socketRef.current.emit("state", "setRedistInit", true);
     setTimeout(() => {
       if (loser.cp === 0) socketRef.current.emit("state", "setGameover", true);
       else socketRef.current.emit("state", "setRedistribute", true);

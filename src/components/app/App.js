@@ -37,10 +37,12 @@ const App = () => {
   );
   [state.round, state.setRound] = useState("");
   [state.creation, state.setCreation] = useState(true);
-  [state.redistrubite, state.setRedistribute] = useState(false);
+  [state.redistribute, state.setRedistribute] = useState(false);
   [state.gameover, state.setGameover] = useState(false);
   [state.roundWinner, state.setRoundWinner] = useState("");
   [state.gameInit, state.setGameInit] = useState([]);
+  [state.redistInit, state.setRedistInit] = useState(false);
+  [state.redistCountdown, state.setRedistCountdown] = useState(-1);
 
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL);
@@ -63,19 +65,38 @@ const App = () => {
     initialiseGame(socketRef, state.gameInit);
   }, [state.gameInit]);
 
+  useEffect(async () => {
+    if (!state.creation && state.redistribute) {
+      state.setRedistCountdown(10);
+    }
+  }, [state.redistribute]);
+
+  useEffect(() => {
+    if (!state.creation && state.redistribute) {
+      if (state.redistCountdown > 0) {
+        setTimeout(() => {
+          const count = state.redistCountdown - 1;
+          state.setRedistCountdown(count);
+        }, 1000);
+      } else {
+        initialiseGame(socketRef, state.gameInit);
+      }
+    }
+  }, [state.redistCountdown]);
+
   return (
     <div
       className={
-        state.creation || state.redistrubite
+        state.creation || state.redistribute
           ? "application"
           : "application arena"
       }
     >
-      <Title showImg={!state.creation && !state.redistrubite} />
+      <Title showImg={!state.creation && !state.redistribute} />
 
       {state.gameover ? (
         <Gameover winner={state.roundWinner} />
-      ) : state.creation || state.redistrubite ? (
+      ) : state.creation || state.redistribute ? (
         <PointDist
           creation={state.creation}
           player={
@@ -87,7 +108,9 @@ const App = () => {
           onSubmit={(e) => {
             handlePointDistSubmit(e, socketRef, state, P1);
           }}
-          redistribute={state.redistrubite}
+          redistribute={state.redistribute}
+          redistCountdown={state.redistCountdown}
+          redistInit={state.redistInit}
           winner={state.roundWinner}
           user={state.user}
         />

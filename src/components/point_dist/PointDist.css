@@ -64,3 +64,11 @@ input, textarea {
   display: block;
   margin-bottom: 0 auto;
 }
+
+.redistribute {
+  text-align: center;
+}
+
+.redistribute h1 {
+  font-size: 1.5rem;
+}
