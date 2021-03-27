@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Div, Image, Table, Tbody, Thead, Td, Th, Tr } from "../styled";
-import InputBlock from "../InputBlock";
+import InputBlock from "../styled/InputBlock";
 
 import portrait from "../../img/salaryman1.jpg";
 

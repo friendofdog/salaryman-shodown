@@ -15,7 +15,8 @@ import Gameover from "../gameover/Gameover";
 import Round from "../round/Round";
 import PointDist from "../point_dist/PointDist";
 import Title from "../title/Title";
-import "./App.css";
+
+import { Div } from "../styled";
 
 const App = () => {
   const socketRef = useRef();
@@ -85,13 +86,7 @@ const App = () => {
   }, [state.redistCountdown]);
 
   return (
-    <div
-      className={
-        state.creation || state.redistribute
-          ? "application"
-          : "application arena"
-      }
-    >
+    <Div application arena={!state.creation && !state.redistribute}>
       <Title showImg={!state.creation && !state.redistribute} />
 
       {state.gameover ? (
@@ -128,7 +123,7 @@ const App = () => {
           />
         </>
       )}
-    </div>
+    </Div>
   );
 };
 

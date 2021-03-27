@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Div, Form, H1, P } from "../styled";
-import InputBlock from "../InputBlock";
+import InputBlock from "../styled/InputBlock";
 import Personal from "./Personal";
 import Stats from "./Stats";
 import Wait from "./Wait";

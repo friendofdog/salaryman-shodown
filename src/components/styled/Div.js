@@ -21,6 +21,40 @@ const Div = styled.div`
     css`
       text-align: center;
     `}
+
+  ${(props) =>
+    props.gameWinner &&
+    css`
+      text-align: center;
+      font-size: 3rem;
+    `}
+
+  ${(props) =>
+    props.arena &&
+    css`
+      color: #fff;
+      text-align: center;
+    `}
+
+  ${(props) =>
+    props.salarymanWrapper &&
+    css`
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    `}
+
+  ${(props) =>
+    props.application &&
+    css`
+      height: 100%;
+    `}
+
+  ${(props) =>
+    props.arena &&
+    css`
+      background-color: brown;
+    `}
 `;
 
 export default Div;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Input, Label } from "./styled";
+import { Input, Label } from ".";
 
 const InputBlock = (props) => {
   const {

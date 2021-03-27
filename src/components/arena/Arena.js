@@ -1,6 +1,7 @@
 import React from "react";
 
-import "./Arena.css";
+import { Div, H2, Image } from "../styled";
+
 import Salaryman from "../salaryman/Salaryman";
 import salaryman1 from "../../img/salaryman1.jpg";
 import salaryman2 from "../../img/salaryman2.jpg";
@@ -13,15 +14,15 @@ const Arena = (props) => {
   });
 
   return (
-    <div className="arena">
-      <h2>You are: {activePlayer[0].name}</h2>
-      <div className="salaryman-wrapper">
+    <Div>
+      <H2 arena>You are: {activePlayer[0].name}</H2>
+      <Div salarymanWrapper>
         <Salaryman player={player1} user={user} />
-        <img alt="Player 1 salaryman" src={salaryman1} />
-        <img alt="Player 2 salaryman" src={salaryman2} />
+        <Image alt="Player 1 salaryman" src={salaryman1} />
+        <Image alt="Player 2 salaryman" src={salaryman2} />
         <Salaryman player={player2} user={user} />
-      </div>
-    </div>
+      </Div>
+    </Div>
   );
 };
 
