@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import socketIOClient from "socket.io-client";
 
+import styled from "styled-components";
+
 import {
   handleRound,
   handlePointDistChange,
@@ -15,7 +17,11 @@ import Gameover from "../gameover/Gameover";
 import Round from "../round/Round";
 import PointDist from "../point_dist/PointDist";
 import Title from "../title/Title";
-import "./App.css";
+
+const ApplicationContainer = styled.main((props) => ({
+  height: "100%",
+  backgroundColor: `${props.color || "#fff"}`,
+}));
 
 const App = () => {
   const socketRef = useRef();
@@ -85,12 +91,8 @@ const App = () => {
   }, [state.redistCountdown]);
 
   return (
-    <div
-      className={
-        state.creation || state.redistribute
-          ? "application"
-          : "application arena"
-      }
+    <ApplicationContainer
+      color={(!state.creation && !state.redistribute && "brown") || "#fff"}
     >
       <Title showImg={!state.creation && !state.redistribute} />
 
@@ -128,7 +130,7 @@ const App = () => {
           />
         </>
       )}
-    </div>
+    </ApplicationContainer>
   );
 };
 

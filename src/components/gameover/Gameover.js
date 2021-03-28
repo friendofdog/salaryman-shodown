@@ -1,14 +1,14 @@
 import React from "react";
 
-import "./Gameover.css";
+import { Div, CentredP } from "../styled";
 
 const Gameover = (props) => {
   const { winner } = props;
 
   return (
-    <div className="gameover">
-      <p className="game-winner">{winner.name} wins the game!</p>
-    </div>
+    <Div>
+      <CentredP>{winner.name} wins the game!</CentredP>
+    </Div>
   );
 };
 

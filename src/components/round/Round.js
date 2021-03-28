@@ -1,39 +1,50 @@
 import React from "react";
+import styled from "styled-components";
 
-import "./Round.css";
+import { CentredP, Div, Section } from "../styled";
+
 import startButton from "../../img/start.png";
+
+const RoundContainer = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+`;
+
+const RoundStart = styled.img`
+  cursor: pointer;
+`;
 
 const Round = (props) => {
   const { handleRound, round, winner } = props;
 
   return (
-    <div className="round">
-      <div>
-        {round && winner ? (
-          <>
-            <p className="winning-stat">{round}</p>
-            <p className="outcome">{winner.name} wins the round!</p>
-          </>
-        ) : round ? (
-          <>
-            <img
+    <Section>
+      <RoundContainer>
+        <Div>
+          {!winner && (
+            <RoundStart
               className="round-start"
               alt="start a round"
               src={startButton}
               onClick={handleRound}
             />
-            <p className="outcome">Draw!</p>
-          </>
-        ) : (
-          <img
-            className="round-start"
-            alt="start a round"
-            src={startButton}
-            onClick={handleRound}
-          />
-        )}
-      </div>
-    </div>
+          )}
+
+          {round && winner && (
+            <CentredP fontSize="2" marginTop="0">
+              {round}
+            </CentredP>
+          )}
+
+          {round && (
+            <CentredP>
+              {(winner.name && `${winner.name} wins the round!`) || "Draw!"}
+            </CentredP>
+          )}
+        </Div>
+      </RoundContainer>
+    </Section>
   );
 };
 
