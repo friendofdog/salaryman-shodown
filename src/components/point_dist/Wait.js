@@ -1,12 +1,19 @@
 import React from "react";
-import { Div, Image } from "../styled";
+import styled from "styled-components";
+
+import { Image } from "../styled";
 import matte from "../../img/matte.svg";
+
+const WaitContainer = styled.div`
+  display: block;
+  margin-bottom: 0 auto;
+`;
 
 const Wait = () => {
   return (
-    <Div wait>
+    <WaitContainer>
       <Image alt="Chotto matte..." src={matte} />
-    </Div>
+    </WaitContainer>
   );
 };
 

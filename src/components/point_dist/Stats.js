@@ -9,7 +9,7 @@ const Stats = (props) => {
   const noPoints = player.points <= 0;
 
   return (
-    <Table pointDist>
+    <Table>
       <Thead>
         <Tr>
           <Th colSpan="2">職業訓練歴</Th>

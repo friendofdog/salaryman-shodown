@@ -1,10 +1,17 @@
 import React from "react";
+import styled from "styled-components";
 
-import { Div, Form, H1, P } from "../styled";
+import { CentredP, Div, Form } from "../styled";
 import InputBlock from "../styled/InputBlock";
 import Personal from "./Personal";
 import Stats from "./Stats";
 import Wait from "./Wait";
+
+const PointDistContainer = styled.div`
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 2rem 3rem;
+`;
 
 const PointDist = (props) => {
   const {
@@ -22,7 +29,7 @@ const PointDist = (props) => {
   const roundWinner = winner.id === user;
 
   return (
-    <Div pointDist>
+    <PointDistContainer>
       {roundWinner ? (
         <Wait user={user} />
       ) : (
@@ -30,10 +37,16 @@ const PointDist = (props) => {
           {creation ? (
             <Personal />
           ) : (
-            <Div redist>
-              <H1>Redistribute a point?</H1>
-              <P>Optional: choose ONE point to redistrubute!</P>
-              <P>Time remaining: {redistCountdown}</P>
+            <Div>
+              <CentredP color="#000" fontSize="1">
+                Redistribute a point?
+              </CentredP>
+              <CentredP color="#000" fontSize="1">
+                Optional: choose ONE point to redistrubute!
+              </CentredP>
+              <CentredP color="#000" fontSize="1">
+                Time remaining: {redistCountdown}
+              </CentredP>
             </Div>
           )}
           <Stats
@@ -48,7 +61,7 @@ const PointDist = (props) => {
           />
         </Form>
       )}
-    </Div>
+    </PointDistContainer>
   );
 };
 

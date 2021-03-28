@@ -1,12 +1,5 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-const Image = styled.img`
-  ${(props) =>
-    props.personal &&
-    css`
-      width: 120px;
-      float: right;
-    `}
-`;
+const Image = styled.img``;
 
 export default Image;

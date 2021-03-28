@@ -1,19 +1,26 @@
 import React from "react";
+import styled from "styled-components";
 
-import "./Title.css";
+import { Div, H1 } from "../styled";
 import titleImage from "../../img/title-image.png";
+
+const TitleImage = styled.img`
+  display: block;
+  margin: 0 auto;
+  max-width: 450px;
+`;
 
 const Title = (props) => {
   const { showImg } = props;
 
   return (
-    <div className="title">
+    <Div>
       {showImg ? (
-        <img alt="Salaryman Shodown" src={titleImage} />
+        <TitleImage alt="Salaryman Shodown" src={titleImage} />
       ) : (
-        <div className="app-title">Salaryman Shodown</div>
+        <H1>Salaryman Shodown</H1>
       )}
-    </div>
+    </Div>
   );
 };
 

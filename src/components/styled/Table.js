@@ -1,13 +1,9 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-const Table = styled.table`
-  ${(props) =>
-    props.pointDist &&
-    css`
-      border: 1px solid black;
-      width: 100%;
-      margin-bottom: 1rem;
-    `}
-`;
+const Table = styled.table((props) => ({
+  border: `${props.border || "none"}`,
+  width: "100%",
+  marginBottom: "1rem",
+}));
 
 export default Table;
