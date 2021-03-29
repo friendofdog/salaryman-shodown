@@ -39,7 +39,7 @@ const handlePointDistSubmit = async (e, socketRef, state, P1) => {
   await socketRef.current.emit(
     "state",
     state.user === P1 ? "setPlayer1" : "setPlayer2",
-    state.user === P1 ? { ...state.player1 } : { ...state.player2 },
+    state.user === P1 ? { ...state.player1 } : { ...state.player2 }
   );
 
   const users = [...state.gameInit];
@@ -91,7 +91,7 @@ const handleRound = (state, socketRef) => {
     { ...state.player1 },
     { ...state.player2 },
     stat,
-    socketRef,
+    socketRef
   );
 
   socketRef.current.emit("state", "setRoundWinner", winner);

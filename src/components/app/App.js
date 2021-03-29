@@ -36,10 +36,10 @@ const App = () => {
 
   [state.user, state.setUser] = useState();
   [state.player1, state.setPlayer1] = useState(
-    new Salaryman("Yoshiro", "Chief Director", "Abc", P1),
+    new Salaryman("Yoshiro", "Chief Director", "Abc", P1)
   );
   [state.player2, state.setPlayer2] = useState(
-    new Salaryman("Yoshitaka", "Cybersecurity Head", "Def", P2),
+    new Salaryman("Yoshitaka", "Cybersecurity Head", "Def", P2)
   );
   [state.round, state.setRound] = useState("");
   [state.creation, state.setCreation] = useState(true);
