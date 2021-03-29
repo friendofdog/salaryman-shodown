@@ -23,14 +23,15 @@
         "react"
     ],
     "rules": {
-        "max-len": [2, 80, 2, {"ignoreUrls": true}],
-        "react/prop-types": 0,
         "comma-dangle": ["warn", {
             "arrays": "only-multiline",
             "objects": "only-multiline",
             "imports": "only-multiline",
             "exports": "only-multiline",
             "functions": "never"
-        }]
+        }],
+        "max-len": ["warn", 80, 2, {"ignoreUrls": true}],
+        "no-unused-vars": ["warn", { "vars": "all" }],
+        "react/prop-types": 0
     }
 }
