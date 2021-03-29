@@ -24,6 +24,13 @@
     ],
     "rules": {
         "max-len": [2, 80, 2, {"ignoreUrls": true}],
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "comma-dangle": ["warn", {
+            "arrays": "only-multiline",
+            "objects": "only-multiline",
+            "imports": "only-multiline",
+            "exports": "only-multiline",
+            "functions": "never"
+        }]
     }
 }
