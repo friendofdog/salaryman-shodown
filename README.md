@@ -6,6 +6,16 @@ This app is a PvP game where players build a salaryman and battle them against e
 
 Staging version deployed at https://salaryman-shodown-staging.herokuapp.com.
 
+## How to play
+
+*Anything under 履歴書 can be ignored. This is for future implementation.*
+
+1. Your salaryman has 6 attributes: conformity, loyalty, karaoke skill, mucus production, senority, sobriety. All attributes start with a base of 5. You have 10 additional points to distribute across these attributes.
+2. Distribute your points and click [submit] After both players have clicked [submit], the game begins.
+3. Click [START] to initiate a round. The game will randomly select an attribute to compare between both players. The player with the higher value for that attribute wins the round. If there is a draw, players are notified but are not told which attribute was compared.
+4. The round loser will lose one CP but will have the option of re-distrubuting a single attribute point.
+5. The game continues until one player reaches 0 CP. The other player wins.
+
 ## App behaviour
 
 ### Basic (implemented)
