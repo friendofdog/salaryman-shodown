@@ -4,6 +4,7 @@ import socketIOClient from "socket.io-client";
 import styled from "styled-components";
 
 import {
+  closeModal,
   handleRound,
   handlePointDistChange,
   handlePointDistSubmit,
@@ -17,6 +18,7 @@ import Gameover from "../gameover/Gameover";
 import Round from "../round/Round";
 import PointDist from "../point_dist/PointDist";
 import Title from "../title/Title";
+import Instructions from "../instructions/Instructions";
 
 const ApplicationContainer = styled.main((props) => ({
   height: "100%",
@@ -49,6 +51,7 @@ const App = () => {
   [state.gameInit, state.setGameInit] = useState([]);
   [state.redistInit, state.setRedistInit] = useState(false);
   [state.redistCountdown, state.setRedistCountdown] = useState(-1);
+  [state.modalClosed, state.setModalClosed] = useState(false);
 
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL);
@@ -99,23 +102,29 @@ const App = () => {
       {state.gameover ? (
         <Gameover winner={state.roundWinner} />
       ) : state.creation || state.redistribute ? (
-        <PointDist
-          creation={state.creation}
-          player={
-            state.user === P1 ? { ...state.player1 } : { ...state.player2 }
-          }
-          onChange={(e) => {
-            handlePointDistChange(e.target.name, e.target.value, state, P1);
-          }}
-          onSubmit={(e) => {
-            handlePointDistSubmit(e, socketRef, state, P1);
-          }}
-          redistribute={state.redistribute}
-          redistCountdown={state.redistCountdown}
-          redistInit={state.redistInit}
-          winner={state.roundWinner}
-          user={state.user}
-        />
+        <>
+          <Instructions
+            closed={state.modalClosed}
+            closeModal={() => closeModal(state)}
+          />
+          <PointDist
+            creation={state.creation}
+            player={
+              state.user === P1 ? { ...state.player1 } : { ...state.player2 }
+            }
+            onChange={(e) => {
+              handlePointDistChange(e.target.name, e.target.value, state, P1);
+            }}
+            onSubmit={(e) => {
+              handlePointDistSubmit(e, socketRef, state, P1);
+            }}
+            redistribute={state.redistribute}
+            redistCountdown={state.redistCountdown}
+            redistInit={state.redistInit}
+            winner={state.roundWinner}
+            user={state.user}
+          />
+        </>
       ) : (
         <>
           <Arena
