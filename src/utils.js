@@ -8,6 +8,14 @@ const salarymanStats = [
 ];
 
 /*
+ * Modal: close
+ */
+
+const closeModal = (state) => {
+  state.setModalClosed(true);
+};
+
+/*
  *  PointDist: change
  */
 
@@ -107,6 +115,7 @@ const handleRound = (state, socketRef) => {
 };
 
 export {
+  closeModal,
   handleRound,
   handlePointDistChange,
   handlePointDistSubmit,
