@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Image } from "../styled";
-import matte from "../../img/matte.svg";
+import { Image } from "../../styled";
+import matte from "../../../img/matte.svg";
 
 const WaitContainer = styled.div`
   display: block;

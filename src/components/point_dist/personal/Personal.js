@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Div, Table, Tbody, Thead, Td, Th, Tr } from "../styled";
-import InputBlock from "../styled/InputBlock";
+import { Div, Table, Tbody, Thead, Td, Th, Tr } from "../../styled";
+import InputBlock from "../../styled/InputBlock";
 
-import portrait from "../../img/salaryman1.jpg";
+import portrait from "../../../img/salaryman1.jpg";
 
 const ProfilePic = styled.img`
   float: right;
