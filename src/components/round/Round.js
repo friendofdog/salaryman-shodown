@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { CentredP, Div, Section } from "../styled";
+import { CentredP, Div, Image, Section } from "../styled";
 
 import startButton from "../../img/start.png";
 
@@ -9,10 +9,6 @@ const RoundContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
-`;
-
-const RoundStart = styled.img`
-  cursor: pointer;
 `;
 
 const Round = (props) => {
@@ -23,9 +19,9 @@ const Round = (props) => {
       <RoundContainer>
         <Div>
           {!winner && (
-            <RoundStart
-              className="round-start"
-              alt="start a round"
+            <Image
+              cursor="pointer"
+              alt="Start a round"
               src={startButton}
               onClick={handleRound}
             />
