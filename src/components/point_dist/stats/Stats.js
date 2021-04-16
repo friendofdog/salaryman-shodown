@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Table, Tbody, Thead, Td, Th, Tr } from "../styled";
-import InputBlock from "../styled/InputBlock";
+import { Table, Tbody, Thead, Td, Th, Tr } from "../../styled";
+import InputBlock from "../../styled/InputBlock";
 
 const Stats = (props) => {
   const { player, redistribute, redistInit } = props;
