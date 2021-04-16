@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { CentredP, Image, Section } from "../styled";
 
-import Salaryman from "../salaryman/Salaryman";
+import Player from "../player/Player";
 import salaryman1 from "../../img/salaryman1.jpg";
 import salaryman2 from "../../img/salaryman2.jpg";
 
@@ -24,10 +24,10 @@ const Arena = (props) => {
     <Section>
       <CentredP>You are: {activePlayer[0].name}</CentredP>
       <SalarymanWrapper>
-        <Salaryman player={player1} user={user} />
+        <Player player={player1} user={user} />
         <Image alt="Player 1 salaryman" src={salaryman1} />
         <Image alt="Player 2 salaryman" src={salaryman2} />
-        <Salaryman player={player2} user={user} />
+        <Player player={player2} user={user} />
       </SalarymanWrapper>
     </Section>
   );
