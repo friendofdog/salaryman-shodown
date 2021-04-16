@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 import { CentredP, Div, Form } from "../styled";
 import InputBlock from "../styled/InputBlock";
-import Personal from "./Personal";
-import Stats from "./Stats";
-import Wait from "./Wait";
+import Personal from "./personal/Personal";
+import Stats from "./stats/Stats";
+import Wait from "./wait/Wait";
 
 const PointDistContainer = styled.div`
   margin: 0 auto;
