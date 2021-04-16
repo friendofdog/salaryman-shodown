@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Table, Tbody, Thead, Td, Th, Tr } from "../../styled";
+import { Label, Table, Tbody, Thead, Td, Th, Tr } from "../../styled";
 import InputBlock from "../../styled/InputBlock";
 
 const Stats = (props) => {
@@ -23,7 +23,9 @@ const Stats = (props) => {
         {Object.entries(player.stats).map((stat, index) => {
           return (
             <Tr key={index}>
-              <Td width="50%">{stat[1].name}</Td>
+              <Td width="50%">
+                <Label htmlFor={stat[0]}>{stat[1].name}</Label>
+              </Td>
               <Td width="50%">
                 <InputBlock
                   id={stat[0]}

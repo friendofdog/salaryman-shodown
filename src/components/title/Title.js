@@ -16,7 +16,7 @@ const Title = (props) => {
   return (
     <Div>
       {showImg ? (
-        <TitleImage alt="Salaryman Shodown" src={titleImage} />
+        <TitleImage alt="Salaryman Shodown title" src={titleImage} />
       ) : (
         <H1>Salaryman Shodown</H1>
       )}

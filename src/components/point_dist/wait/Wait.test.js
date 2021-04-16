@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import Wait from "./Wait";
 
-test("PointDist renders Personal on game creation", () => {
+test("Wait renders Image", () => {
   const { container, getByAltText } = render(<Wait />);
 
   expect(container).toBeInstanceOf(HTMLDivElement);
