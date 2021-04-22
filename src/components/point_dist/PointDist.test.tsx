@@ -3,22 +3,27 @@ import { render } from "@testing-library/react";
 import Enzyme, { mount } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 
-import PointDist from "./PointDist.js";
+import PointDist from "./PointDist";
 import { Salaryman } from "../../classes";
 
 Enzyme.configure({ adapter: new Adapter() });
 
+const initSalaryman = new Salaryman();
 const mockSalaryman = new Salaryman("A", "B", "C", "player1");
+const mockChangeCallback = jest.fn();
+const mockSubmitCallback = jest.fn();
 
 test("PointDist renders Form for point distribution", () => {
   const { container, getByText } = render(
     <PointDist
       creation={true}
       player={mockSalaryman}
+      onChange={mockChangeCallback()}
+      onSubmit={mockSubmitCallback()}
       redistribute={false}
       redistCountdown={-1}
       redistInit={false}
-      winner={{}}
+      winner={initSalaryman}
       user={"player1"}
     />
   );
@@ -29,8 +34,6 @@ test("PointDist renders Form for point distribution", () => {
 });
 
 test("PointDist passes callbacks to Form", () => {
-  const mockChangeCallback = jest.fn();
-  const mockSubmitCallback = jest.fn();
   const component = mount(
     <PointDist
       creation={true}
@@ -40,7 +43,7 @@ test("PointDist passes callbacks to Form", () => {
       redistribute={false}
       redistCountdown={-1}
       redistInit={false}
-      winner={{}}
+      winner={initSalaryman}
       user={"player1"}
     />
   );
@@ -57,12 +60,12 @@ test("PointDist renders Wait if player won round", () => {
     <PointDist
       creation={false}
       player={mockSalaryman}
-      onChange={() => {}}
-      onSubmit={() => {}}
+      onChange={mockChangeCallback()}
+      onSubmit={mockSubmitCallback()}
       redistribute={false}
       redistCountdown={-1}
       redistInit={false}
-      winner={{ id: "player1" }}
+      winner={mockSalaryman}
       user={"player1"}
     />
   );
@@ -77,12 +80,12 @@ test("PointDist renders Redistribute if player won round", () => {
     <PointDist
       creation={false}
       player={mockSalaryman}
-      onChange={() => {}}
-      onSubmit={() => {}}
+      onChange={mockChangeCallback()}
+      onSubmit={mockSubmitCallback()}
       redistribute={false}
       redistCountdown={-1}
       redistInit={false}
-      winner={{}}
+      winner={initSalaryman}
       user={"player1"}
     />
   );

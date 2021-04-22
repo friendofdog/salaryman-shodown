@@ -1,18 +1,23 @@
 import React from "react";
+import { Salaryman } from "../../../classes";
 
 import { Label, Table, Tbody, Thead, Td, Th, Tr } from "../../styled";
 import InputBlock from "../../styled/InputBlock";
 
-const Stats = (props) => {
-  const { player, redistribute, redistInit } = props;
+type StatsProps = {
+  player: Salaryman;
+  redistribute: boolean;
+  redistInit?: boolean;
+};
 
+const Stats: React.FC<StatsProps> = ({ player, redistribute, redistInit }) => {
   const noPoints = player.points <= 0;
 
   return (
     <Table>
       <Thead>
         <Tr>
-          <Th colSpan="2">職業訓練歴</Th>
+          <Th colSpan={2}>職業訓練歴</Th>
         </Tr>
         <Tr>
           <Td>ポイント</Td>
@@ -31,8 +36,8 @@ const Stats = (props) => {
                   id={stat[0]}
                   name={stat[0]}
                   type="number"
-                  min={redistribute && !noPoints ? stat[1].val : "1"}
-                  max={noPoints ? stat[1].val : "10"}
+                  min={redistribute && !noPoints ? stat[1].val : 1}
+                  max={noPoints ? stat[1].val : 10}
                   defaultValue={stat[1].val}
                   disabled={redistribute && noPoints && !redistInit}
                 />

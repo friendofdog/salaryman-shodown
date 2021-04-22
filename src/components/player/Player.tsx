@@ -1,6 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Div, P, Table, Tbody, Td, Tr } from "../styled";
+import { Salaryman } from "../../classes";
+
+type PlayerProps = {
+  player: Salaryman;
+  user: string;
+};
 
 const PlayerContainer = styled.div`
   background-color: lightyellow;
@@ -11,9 +17,7 @@ const PlayerContainer = styled.div`
   padding: 5px;
 `;
 
-const Player = (props) => {
-  const { player, user } = props;
-
+const Player: React.FC<PlayerProps> = ({ player, user }) => {
   const visible = user === player.id;
 
   return (

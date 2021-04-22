@@ -11,19 +11,16 @@ const salarymanStats = [
  * Modal: close
  */
 
-const closeModal = (state) => {
-  state.setModalClosed(true);
+const closeModal = (setModalClosed) => {
+  setModalClosed(true);
 };
 
 /*
  *  PointDist: change
  */
 
-const handlePointDistChange = (key, val, state, P1) => {
-  state.setRedistInit(false);
-  const player =
-    state.user === P1 ? { ...state.player1 } : { ...state.player2 };
-  const hook = state.user === P1 ? state.setPlayer1 : state.setPlayer2;
+const handlePointDistChange = (key, val, player, callback, setRedistInit) => {
+  setRedistInit(false);
 
   if (salarymanStats.includes(key)) {
     const stat = player.stats[key];
@@ -34,26 +31,25 @@ const handlePointDistChange = (key, val, state, P1) => {
     player[key] = val;
   }
 
-  hook(player);
+  callback(player);
 };
 
 /*
  *  PointDist: submit
  */
 
-const handlePointDistSubmit = async (e, socketRef, state, P1) => {
+const handlePointDistSubmit = async (
+  e,
+  socketRef,
+  player,
+  callback,
+  gameInit
+) => {
   e.preventDefault();
 
-  await socketRef.current.emit(
-    "state",
-    state.user === P1 ? "setPlayer1" : "setPlayer2",
-    state.user === P1 ? { ...state.player1 } : { ...state.player2 }
-  );
+  await socketRef.current.emit("state", callback, player);
 
-  const users = [...state.gameInit];
-  users.push(state.user);
-
-  socketRef.current.emit("state", "setGameInit", users);
+  socketRef.current.emit("state", "setGameInit", gameInit + 1);
 };
 
 /*
@@ -61,11 +57,11 @@ const handlePointDistSubmit = async (e, socketRef, state, P1) => {
  */
 
 const initialiseGame = (socketRef, gameInit) => {
-  if (gameInit.length >= 2) {
+  if (gameInit >= 2) {
     socketRef.current.emit("state", "setCreation", false);
     socketRef.current.emit("state", "setRedistribute", false);
-    socketRef.current.emit("state", "setRound", "");
-    socketRef.current.emit("state", "setRoundWinner", "");
+    socketRef.current.emit("state", "setRound", null);
+    socketRef.current.emit("state", "setRoundWinner", null);
   }
 };
 
@@ -93,14 +89,9 @@ const roundWinnerLoser = (player1, player2, stat, socketRef) => {
   return [winner, loser];
 };
 
-const handleRound = (state, socketRef) => {
+const handleRound = (player1, player2, socketRef) => {
   const stat = getRandStat(salarymanStats);
-  const [winner, loser] = roundWinnerLoser(
-    { ...state.player1 },
-    { ...state.player2 },
-    stat,
-    socketRef
-  );
+  const [winner, loser] = roundWinnerLoser(player1, player2, stat, socketRef);
 
   socketRef.current.emit("state", "setRoundWinner", winner);
   socketRef.current.emit("state", "setRound", stat);

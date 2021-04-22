@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
 
-const P = styled.p`
+type PProps = {
+  marginAll?: string;
+};
+
+const P = styled.p<PProps>`
   ${(props) =>
     props.marginAll &&
     css`

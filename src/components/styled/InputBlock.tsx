@@ -2,20 +2,33 @@ import React from "react";
 
 import { Input, Label } from ".";
 
-const InputBlock = (props) => {
-  const {
-    id,
-    name,
-    type,
-    min,
-    max,
-    defaultValue,
-    disabled,
-    placeholder,
-    label,
-    width,
-  } = props;
+type InputBlockProps = {
+  id?: string;
+  name?: string;
+  type?: string;
+  min?: number;
+  max?: number;
+  defaultValue?: string | number;
+  disabled?: boolean;
+  placeholder?: string;
+  label?: string;
+  width?: string;
+  value?: string | number;
+};
 
+const InputBlock: React.FC<InputBlockProps> = ({
+  id,
+  name,
+  type,
+  min,
+  max,
+  defaultValue,
+  disabled,
+  placeholder,
+  label,
+  width,
+  value,
+}) => {
   return (
     <>
       {label && <Label htmlFor={id}>{label}</Label>}
@@ -30,6 +43,7 @@ const InputBlock = (props) => {
         placeholder={placeholder}
         submit={type === "submit"}
         width={width}
+        value={value}
       />
     </>
   );

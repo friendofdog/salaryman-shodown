@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("state", (hook, data) => {
-    io.sockets.emit("state", hook, data);
+    io.sockets.emit(hook, data);
   });
 });
 
