@@ -5,12 +5,18 @@
         "jest": true,
         "node": true
     },
+    "settings": {
+        "react": {
+        "version": "latest"
+        }
+    },
     "extends": [
         "eslint:recommended",
         "plugin:prettier/recommended",
         "plugin:react/recommended",
         "problems"
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -20,9 +26,13 @@
     },
     "plugins": [
         "prettier",
-        "react"
+        "react",
+        "@typescript-eslint"
     ],
     "rules": {
+        // "@typescript-eslint/rule-name": "error",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"],
         "comma-dangle": ["warn", {
             "arrays": "only-multiline",
             "objects": "only-multiline",
@@ -31,7 +41,8 @@
             "functions": "never"
         }],
         "max-len": ["warn", 80, 2, {"ignoreUrls": true}],
-        "no-unused-vars": ["warn", { "vars": "all" }],
+        "no-unused-vars": 0,
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "react/prop-types": 0
     }
 }

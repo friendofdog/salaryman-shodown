@@ -1,9 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { Salaryman } from "../../classes";
 
 import { CentredP, Div, Image, Section } from "../styled";
 
 import startButton from "../../img/start.png";
+
+type RoundProps = {
+  handleRound: () => void;
+  round: string;
+  winner?: Salaryman;
+};
 
 const RoundContainer = styled.div`
   align-items: center;
@@ -11,9 +18,7 @@ const RoundContainer = styled.div`
   justify-content: center;
 `;
 
-const Round = (props) => {
-  const { handleRound, round, winner } = props;
-
+const Round: React.FC<RoundProps> = ({ handleRound, round, winner }) => {
   return (
     <Section>
       <RoundContainer>
@@ -35,7 +40,7 @@ const Round = (props) => {
 
           {round && (
             <CentredP>
-              {(winner.name && `${winner.name} wins the round!`) || "Draw!"}
+              {(winner && `${winner.name} wins the round!`) || "Draw!"}
             </CentredP>
           )}
         </Div>

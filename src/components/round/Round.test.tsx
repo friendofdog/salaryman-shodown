@@ -8,9 +8,11 @@ import { Salaryman } from "../../classes";
 
 Enzyme.configure({ adapter: new Adapter() });
 
+const mockSalaryman = new Salaryman("A", "B", "C", "player1");
+
 test("Round renders round start image if no winner", () => {
   const { container, getByAltText } = render(
-    <Round handleRound={() => {}} round={"conformity"} winner={false} />
+    <Round handleRound={() => {}} round={"conformity"} />
   );
 
   expect(getByAltText("Start a round")).toBeInTheDocument;
@@ -18,7 +20,6 @@ test("Round renders round start image if no winner", () => {
 });
 
 test("Round renders stat and winner if winner", () => {
-  const mockSalaryman = new Salaryman("A", "B", "C", "player1");
   const { container, getByText } = render(
     <Round handleRound={() => {}} round={"conformity"} winner={mockSalaryman} />
   );
@@ -30,7 +31,7 @@ test("Round renders stat and winner if winner", () => {
 
 test("Round renders only draw if draw", () => {
   const { container, getByText } = render(
-    <Round handleRound={() => {}} round={"conformity"} winner={false} />
+    <Round handleRound={() => {}} round={"conformity"} />
   );
 
   expect(getByText("Draw!")).toBeInTheDocument;
@@ -40,7 +41,7 @@ test("Round renders only draw if draw", () => {
 test("Round callback fires on image click", () => {
   const mockHandleRound = jest.fn();
   const component = mount(
-    <Round handleRound={mockHandleRound} round={"conformity"} winner={false} />
+    <Round handleRound={mockHandleRound} round={"conformity"} />
   );
   component.find("img").simulate("click", { mockHandleRound });
 

@@ -1,6 +1,11 @@
 import styled, { css } from "styled-components";
 
-const Input = styled.input`
+type InputProps = {
+  submit?: boolean;
+  width?: string;
+};
+
+const Input = styled.input<InputProps>`
   border-radius: 0;
   outline: 0;
   width: ${(props) => props.width || "100%"};

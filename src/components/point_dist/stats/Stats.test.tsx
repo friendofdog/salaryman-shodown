@@ -33,10 +33,10 @@ test("Stats Input on redistribute true, redistInit false, points 10", () => {
   const input = getByLabelText("conformity");
 
   expect(input.id).toBe("conformity");
-  expect(input.min).toBe("5");
-  expect(input.max).toBe("10");
-  expect(input.defaultValue).toBe("5");
-  expect(input.disabled).toBe(false);
+  expect(input).toHaveProperty("min", "5");
+  expect(input).toHaveProperty("max", "10");
+  expect(input).toHaveProperty("value", "5");
+  expect(input).toHaveProperty("disabled", false);
 });
 
 test("Stats Input on redistribute true, redistInit false, points 0", () => {
@@ -49,10 +49,10 @@ test("Stats Input on redistribute true, redistInit false, points 0", () => {
   const input = getByLabelText("conformity");
 
   expect(input.id).toBe("conformity");
-  expect(input.min).toBe("1");
-  expect(input.max).toBe("5");
-  expect(input.defaultValue).toBe("5");
-  expect(input.disabled).toBe(true);
+  expect(input).toHaveProperty("min", "1");
+  expect(input).toHaveProperty("max", "5");
+  expect(input).toHaveProperty("value", "5");
+  expect(input).toHaveProperty("disabled", true);
 });
 
 test("Stats Input on redistribute true, redistInit false, points 0", () => {
@@ -65,10 +65,10 @@ test("Stats Input on redistribute true, redistInit false, points 0", () => {
   const input = getByLabelText("conformity");
 
   expect(input.id).toBe("conformity");
-  expect(input.min).toBe("1");
-  expect(input.max).toBe("5");
-  expect(input.defaultValue).toBe("5");
-  expect(input.disabled).toBe(false);
+  expect(input).toHaveProperty("min", "1");
+  expect(input).toHaveProperty("max", "5");
+  expect(input).toHaveProperty("value", "5");
+  expect(input).toHaveProperty("disabled", false);
 });
 
 test("Stats Input on redistribute false, redistInit false, points 0", () => {
@@ -82,8 +82,8 @@ test("Stats Input on redistribute false, redistInit false, points 0", () => {
   const input = getByLabelText("conformity");
 
   expect(input.id).toBe("conformity");
-  expect(input.min).toBe("1");
-  expect(input.max).toBe("5");
-  expect(input.defaultValue).toBe("5");
-  expect(input.disabled).toBe(false);
+  expect(input).toHaveProperty("min", "1");
+  expect(input).toHaveProperty("max", "5");
+  expect(input).toHaveProperty("value", "5");
+  expect(input).toHaveProperty("disabled", false);
 });

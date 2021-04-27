@@ -4,15 +4,17 @@ import styled from "styled-components";
 import { Div, H1 } from "../styled";
 import titleImage from "../../img/title-image.png";
 
+type TitleProps = {
+  showImg?: boolean;
+};
+
 const TitleImage = styled.img`
   display: block;
   margin: 0 auto;
   max-width: 450px;
 `;
 
-const Title = (props) => {
-  const { showImg } = props;
-
+const Title: React.FC<TitleProps> = ({ showImg }) => {
   return (
     <Div>
       {showImg ? (

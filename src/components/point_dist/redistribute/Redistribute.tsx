@@ -1,8 +1,11 @@
 import React from "react";
 import { Div, CentredP } from "../../styled";
 
-const Redistribute = (props) => {
-  const { redistCountdown } = props;
+type RedistributeProps = {
+  redistCountdown: number;
+};
+
+const Redistribute: React.FC<RedistributeProps> = ({ redistCountdown }) => {
   return (
     <Div>
       <CentredP color="#000" fontSize="1">
