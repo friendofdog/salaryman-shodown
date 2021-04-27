@@ -30,7 +30,7 @@ const Player: React.FC<PlayerProps> = ({ player, user }) => {
       <Div>CP: {player.cp}</Div>
       <Table border="none">
         <Tbody>
-          {Object.values(player.stats).map((stat, index) => {
+          {Object.values(player.stats).map((stat: any, index) => {
             return (
               <Tr key={index}>
                 <Td>{stat.name}</Td>

@@ -25,7 +25,7 @@ const Stats: React.FC<StatsProps> = ({ player, redistribute, redistInit }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {Object.entries(player.stats).map((stat, index) => {
+        {Object.entries(player.stats).map((stat: any, index) => {
           return (
             <Tr key={index}>
               <Td width="50%">
