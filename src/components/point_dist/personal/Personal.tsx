@@ -16,12 +16,12 @@ const Personal = () => {
     <Table>
       <Thead>
         <Tr>
-          <Th colSpan="4">履歴書</Th>
+          <Th colSpan={4}>履歴書</Th>
         </Tr>
       </Thead>
       <Tbody>
         <Tr>
-          <Td colSpan="2" height="2.5" width="50">
+          <Td colSpan={2} height="2.5" width="50">
             <InputBlock id="name" name="name" type="text" label="名前" />
           </Td>
           <Td width="20" height="2.5" align="center">
@@ -49,13 +49,13 @@ const Personal = () => {
           </Td>
         </Tr>
         <Tr>
-          <Td colSpan="2">
+          <Td colSpan={2}>
             <InputBlock id="dob" name="dob" type="text" label="生年月日" />
           </Td>
-          <Td colSpan="2"></Td>
+          <Td colSpan={2}></Td>
         </Tr>
         <Tr>
-          <Td colSpan="2">
+          <Td colSpan={2}>
             <InputBlock
               id="address"
               name="address"
@@ -63,12 +63,12 @@ const Personal = () => {
               label="現住所"
             />
           </Td>
-          <Td colSpan="2">
+          <Td colSpan={2}>
             <InputBlock id="phone" name="phone" type="text" label="電話" />
           </Td>
         </Tr>
         <Tr>
-          <Td colSpan="2">
+          <Td colSpan={2}>
             <InputBlock
               id="contact"
               name="contact"
@@ -76,7 +76,7 @@ const Personal = () => {
               label="連絡先"
             />
           </Td>
-          <Td colSpan="2">
+          <Td colSpan={2}>
             <InputBlock id="fax" name="fax" type="text" label="ファックス" />
           </Td>
         </Tr>

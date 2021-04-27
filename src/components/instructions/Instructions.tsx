@@ -1,9 +1,12 @@
 import React from "react";
 import { CentredP, Modal, P } from "../styled";
 
-const Instructions = (props) => {
-  const { closed, closeModal } = props;
+type InstructionsProps = {
+  closed: boolean;
+  closeModal: () => void;
+};
 
+const Instructions: React.FC<InstructionsProps> = ({ closed, closeModal }) => {
   return (
     <Modal closed={closed} onClick={closeModal}>
       <CentredP color="#000" fontSize="1">

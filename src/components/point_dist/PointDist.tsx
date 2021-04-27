@@ -1,11 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Salaryman } from "../../classes";
 import { CentredP, Div, Form } from "../styled";
 import InputBlock from "../styled/InputBlock";
 import Personal from "./personal/Personal";
 import Stats from "./stats/Stats";
 import Wait from "./wait/Wait";
+
+type PointDistProps = {
+  creation: boolean;
+  player: Salaryman;
+  onChange: (e: any) => void;
+  onSubmit: (e: any) => void;
+  redistCountdown: number;
+  redistInit: boolean;
+  redistribute: boolean;
+  winner: Salaryman;
+  user: string;
+};
 
 const PointDistContainer = styled.div`
   margin: 0 auto;
@@ -13,27 +26,25 @@ const PointDistContainer = styled.div`
   padding: 2rem 3rem;
 `;
 
-const PointDist = (props) => {
-  const {
-    creation,
-    player,
-    onChange,
-    onSubmit,
-    redistCountdown,
-    redistInit,
-    redistribute,
-    winner,
-    user,
-  } = props;
-
+const PointDist: React.FC<PointDistProps> = ({
+  creation,
+  player,
+  onChange,
+  onSubmit,
+  redistCountdown,
+  redistInit,
+  redistribute,
+  winner,
+  user,
+}) => {
   const roundWinner = winner.id === user;
 
   return (
     <PointDistContainer>
       {roundWinner ? (
-        <Wait user={user} />
+        <Wait />
       ) : (
-        <Form onChange={onChange} onSubmit={onSubmit} pointDist>
+        <Form onChange={onChange} onSubmit={onSubmit}>
           {creation ? (
             <Personal />
           ) : (

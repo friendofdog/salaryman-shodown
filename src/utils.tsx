@@ -1,3 +1,6 @@
+import React from "react";
+import { Salaryman } from "./classes";
+
 const salarymanStats = [
   "conformity",
   "loyalty",
@@ -11,61 +14,68 @@ const salarymanStats = [
  * Modal: close
  */
 
-const closeModal = (state) => {
-  state.setModalClosed(true);
+const closeModal = (
+  setModalClosed: React.Dispatch<React.SetStateAction<boolean>>
+): void => {
+  setModalClosed(true);
 };
 
 /*
  *  PointDist: change
  */
 
-const handlePointDistChange = (key, val, state, P1) => {
-  state.setRedistInit(false);
-  const player =
-    state.user === P1 ? { ...state.player1 } : { ...state.player2 };
-  const hook = state.user === P1 ? state.setPlayer1 : state.setPlayer2;
+const handlePointDistChange = (
+  statName: string,
+  val: string,
+  player: Salaryman,
+  callback: React.Dispatch<React.SetStateAction<Salaryman>>,
+  setRedistInit: React.Dispatch<React.SetStateAction<boolean>>
+): void => {
+  setRedistInit(false);
 
-  if (salarymanStats.includes(key)) {
-    const stat = player.stats[key];
+  if (salarymanStats.includes(statName)) {
+    const stat = player.stats[statName];
     const prev = stat.val;
     stat.val = parseInt(val);
     player.points = prev > stat.val ? player.points + 1 : player.points - 1;
   } else {
-    player[key] = val;
+    player.stats[statName] = val;
   }
 
-  hook(player);
+  callback(player);
 };
 
 /*
  *  PointDist: submit
  */
 
-const handlePointDistSubmit = async (e, socketRef, state, P1) => {
+const handlePointDistSubmit = async (
+  e: { preventDefault: () => {} },
+  socketRef: React.MutableRefObject<any>,
+  player: Salaryman,
+  callback: string,
+  gameInit: number
+): Promise<void> => {
   e.preventDefault();
 
-  await socketRef.current.emit(
-    "state",
-    state.user === P1 ? "setPlayer1" : "setPlayer2",
-    state.user === P1 ? { ...state.player1 } : { ...state.player2 }
-  );
+  await socketRef.current.emit("state", callback, player);
 
-  const users = [...state.gameInit];
-  users.push(state.user);
-
-  socketRef.current.emit("state", "setGameInit", users);
+  socketRef.current.emit("state", "setGameInit", gameInit + 1);
 };
 
 /*
  *  PointDist: creation
  */
 
-const initialiseGame = (socketRef, gameInit) => {
-  if (gameInit.length >= 2) {
+const initialiseGame = (
+  socketRef: React.MutableRefObject<any>,
+  gameInit: number
+): void => {
+  if (gameInit >= 2) {
     socketRef.current.emit("state", "setCreation", false);
     socketRef.current.emit("state", "setRedistribute", false);
-    socketRef.current.emit("state", "setRound", "");
-    socketRef.current.emit("state", "setRoundWinner", "");
+    socketRef.current.emit("state", "setRound", null);
+    socketRef.current.emit("state", "setRoundWinner", null);
   }
 };
 
@@ -73,12 +83,18 @@ const initialiseGame = (socketRef, gameInit) => {
  *  Round
  */
 
-const getRandStat = (stats) => {
+// todo: replace any
+const getRandStat = (stats: any): string => {
   const keys = Object.keys(stats);
   return stats[keys[(keys.length * Math.random()) << 0]];
 };
 
-const roundWinnerLoser = (player1, player2, stat, socketRef) => {
+const roundWinnerLoser = (
+  player1: Salaryman,
+  player2: Salaryman,
+  stat: string,
+  socketRef: React.MutableRefObject<any>
+): [Salaryman | false, Salaryman | false] => {
   const [p1score, p2score] = [player1.stats[stat].val, player2.stats[stat].val];
 
   if (p1score === p2score) return [false, false];
@@ -93,14 +109,13 @@ const roundWinnerLoser = (player1, player2, stat, socketRef) => {
   return [winner, loser];
 };
 
-const handleRound = (state, socketRef) => {
+const handleRound = (
+  player1: Salaryman,
+  player2: Salaryman,
+  socketRef: React.MutableRefObject<any>
+): void => {
   const stat = getRandStat(salarymanStats);
-  const [winner, loser] = roundWinnerLoser(
-    { ...state.player1 },
-    { ...state.player2 },
-    stat,
-    socketRef
-  );
+  const [winner, loser] = roundWinnerLoser(player1, player2, stat, socketRef);
 
   socketRef.current.emit("state", "setRoundWinner", winner);
   socketRef.current.emit("state", "setRound", stat);

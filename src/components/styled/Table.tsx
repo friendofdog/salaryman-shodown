@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-const Table = styled.table((props) => ({
+type TableProps = {
+  border?: string;
+};
+
+const Table = styled.table<TableProps>((props) => ({
   border: `${props.border || "none"}`,
   width: "100%",
   marginBottom: "1rem",

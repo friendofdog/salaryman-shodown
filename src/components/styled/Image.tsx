@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-const Image = styled.img`
+type ImageProps = {
+  cursor?: string;
+};
+
+const Image = styled.img<ImageProps>`
   cursor: ${(props) => props.cursor || "default"};
 `;
 

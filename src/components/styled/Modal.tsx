@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-const Modal = styled.div`
+type ModalProps = {
+  closed?: boolean;
+};
+
+const Modal = styled.div<ModalProps>`
   background: #fff;
   border: 1px solid #000;
   border-radius: 2px;
