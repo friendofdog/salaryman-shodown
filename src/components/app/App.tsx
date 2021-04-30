@@ -142,18 +142,16 @@ const App: React.FC = () => {
           <PointDist
             creation={creation}
             player={user === P1 ? { ...player1 } : { ...player2 }}
-            onChange={(e: {
-              target: { name: keyof Salaryman["stats"]; value: string };
-            }) => {
+            onChange={(e) => {
               handlePointDistChange(
-                e.target.name,
+                e.target.name as keyof Salaryman["stats"],
                 e.target.value,
                 user === P1 ? { ...player1 } : { ...player2 },
                 user === P1 ? setPlayer1 : setPlayer2,
                 setRedistInit
               );
             }}
-            onSubmit={(e: { preventDefault: () => {} }) => {
+            onSubmit={(e) => {
               handlePointDistSubmit(
                 e,
                 socketRef,

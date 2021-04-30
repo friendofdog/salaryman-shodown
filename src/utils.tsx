@@ -46,7 +46,7 @@ const handlePointDistChange = (
  */
 
 const handlePointDistSubmit = async (
-  e: { preventDefault: () => {} },
+  e: React.FormEvent<HTMLFormElement>,
   socketRef: React.MutableRefObject<any>,
   player: Salaryman,
   callback: string,
