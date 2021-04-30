@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 
 import styled from "styled-components";
 
@@ -26,7 +26,7 @@ const ApplicationContainer = styled.main((props) => ({
 }));
 
 const App: React.FC = () => {
-  const socketRef = useRef<any>();
+  const socketRef = useRef<Socket>();
   const PORT = process.env.PORT || 8080;
   const LOCAL = process.env.LOCAL || "http://127.0.0.1";
   const SERVER_URL = process.env.REACT_APP_URL || `${LOCAL}:${PORT}`;
@@ -142,16 +142,16 @@ const App: React.FC = () => {
           <PointDist
             creation={creation}
             player={user === P1 ? { ...player1 } : { ...player2 }}
-            onChange={(e: { target: { name: string; value: string } }) => {
+            onChange={(e) => {
               handlePointDistChange(
-                e.target.name,
+                e.target.name as keyof Salaryman["stats"],
                 e.target.value,
                 user === P1 ? { ...player1 } : { ...player2 },
                 user === P1 ? setPlayer1 : setPlayer2,
                 setRedistInit
               );
             }}
-            onSubmit={(e: { preventDefault: () => {} }) => {
+            onSubmit={(e) => {
               handlePointDistSubmit(
                 e,
                 socketRef,

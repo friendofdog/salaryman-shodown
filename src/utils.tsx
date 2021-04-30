@@ -25,7 +25,7 @@ const closeModal = (
  */
 
 const handlePointDistChange = (
-  statName: string,
+  statName: keyof Salaryman["stats"],
   val: string,
   player: Salaryman,
   callback: React.Dispatch<React.SetStateAction<Salaryman>>,
@@ -33,14 +33,10 @@ const handlePointDistChange = (
 ): void => {
   setRedistInit(false);
 
-  if (salarymanStats.includes(statName)) {
-    const stat = player.stats[statName];
-    const prev = stat.val;
-    stat.val = parseInt(val);
-    player.points = prev > stat.val ? player.points + 1 : player.points - 1;
-  } else {
-    player.stats[statName] = val;
-  }
+  const stat = player.stats[statName];
+  const prev = stat.val;
+  stat.val = parseInt(val);
+  player.points = prev > stat.val ? player.points + 1 : player.points - 1;
 
   callback(player);
 };
@@ -50,7 +46,7 @@ const handlePointDistChange = (
  */
 
 const handlePointDistSubmit = async (
-  e: { preventDefault: () => {} },
+  e: React.FormEvent<HTMLFormElement>,
   socketRef: React.MutableRefObject<any>,
   player: Salaryman,
   callback: string,
@@ -83,8 +79,7 @@ const initialiseGame = (
  *  Round
  */
 
-// todo: replace any
-const getRandStat = (stats: any): string => {
+const getRandStat = (stats: any): keyof Salaryman["stats"] => {
   const keys = Object.keys(stats);
   return stats[keys[(keys.length * Math.random()) << 0]];
 };
@@ -92,7 +87,7 @@ const getRandStat = (stats: any): string => {
 const roundWinnerLoser = (
   player1: Salaryman,
   player2: Salaryman,
-  stat: string,
+  stat: keyof Salaryman["stats"],
   socketRef: React.MutableRefObject<any>
 ): [Salaryman | false, Salaryman | false] => {
   const [p1score, p2score] = [player1.stats[stat].val, player2.stats[stat].val];

@@ -11,8 +11,8 @@ import Wait from "./wait/Wait";
 type PointDistProps = {
   creation: boolean;
   player: Salaryman;
-  onChange: (e: any) => void;
-  onSubmit: (e: any) => void;
+  onChange: React.ChangeEventHandler<HTMLFormElement>;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
   redistCountdown: number;
   redistInit: boolean;
   redistribute: boolean;
